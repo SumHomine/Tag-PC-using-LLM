@@ -1,0 +1,6 @@
+
+Pollution : Health-related, Environmental, notBehavioral, notDiagnostic
+Cancer : Health-related, notEnvironmental, notBehavioral, Diagnostic
+Smoker : Health-related, notEnvironmental, Behavioral, notDiagnostic
+Xray : notHealth-related, notEnvironmental, notBehavioral, Diagnostic
+Dyspnoea : Health-related, notEnvironmental, notBehavioral, notDiagnostic

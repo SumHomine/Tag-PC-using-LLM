@@ -1,0 +1,17 @@
+digraph G {
+	asia [fillcolor="#8dd3c7" style=filled]
+	tub [fillcolor="#8dd3c7" style=filled]
+	smoke [fillcolor="#ffffb3" style=filled]
+	lung [fillcolor="#ffffb3" style=filled]
+	bronc [fillcolor="#bebada" style=filled]
+	either [fillcolor="#bebada" style=filled]
+	xray [fillcolor="#fb8072" style=filled]
+	dysp [fillcolor="#fb8072" style=filled]
+	tub -> either [label="" color=green]
+	smoke -> bronc [label="" color=green]
+	lung -> smoke [label="" color=green]
+	lung -> either [label="" color=green]
+	either -> xray [label="" color=green]
+	dysp -> smoke [label="" color=green]
+	dysp -> bronc [label="" color=green]
+}

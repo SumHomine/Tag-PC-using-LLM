@@ -1,0 +1,4 @@
+Cloudy : Weather
+Sprinkler : Action
+Rain : Weather
+Wet_Grass : State

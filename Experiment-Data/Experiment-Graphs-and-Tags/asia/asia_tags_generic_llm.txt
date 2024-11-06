@@ -1,0 +1,9 @@
+
+asia : Health-related, Respiratory, notDiagnostic, notRisk factor
+tub : Health-related, Respiratory, Diagnostic, notRisk factor
+smoke : Health-related, notRespiratory, notDiagnostic, Risk factor
+lung : Health-related, Respiratory, notDiagnostic, notRisk factor
+bronc : Health-related, Respiratory, notDiagnostic, notRisk factor
+either : notHealth-related, notRespiratory, Diagnostic, notRisk factor
+xray : notHealth-related, notRespiratory, Diagnostic, notRisk factor
+dysp : Health-related, Respiratory, notDiagnostic, notRisk factor

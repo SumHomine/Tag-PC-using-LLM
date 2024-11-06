@@ -1,0 +1,30 @@
+Here is the output in the requested format:
+
+DISPLACEM0 : State
+RApp1 : Action
+SNode_3 : State
+GIVEN_1 : Property
+RApp2 : Action
+SNode_8 : State
+SNode_16 : State
+SNode_20 : State
+NEED1 : Goal
+SNode_21 : State
+GRAV2 : Property
+SNode_24 : State
+SNode_15 : State
+SNode_25 : State
+SLIDING4 : Action
+SNode_11 : State
+SNode_26 : State
+CONSTANT5 : Property
+SNode_47 : State
+VELOCITY7 : Property
+KNOWN6 : Property
+RApp3 : Action
+KNOWN8 : Property
+RApp4 : Action
+SNode_27 : State
+GOAL_2 : Goal
+GOAL_48 : Goal
+...

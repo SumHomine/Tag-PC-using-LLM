@@ -1,0 +1,5 @@
+
+Cloudy : Weather, notGrass, notAction, notState
+Sprinkler : Weather, notGrass, Action, notState
+Rain : Weather, notGrass, notAction, notState
+Wet_Grass : notWeather, Grass, notAction, State

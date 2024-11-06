@@ -1,0 +1,17 @@
+digraph G {
+	A [fillcolor="#8dd3c7" style=filled]
+	R [fillcolor="#ffffb3" style=filled]
+	S [fillcolor="#ffffb3" style=filled]
+	H [fillcolor="#bebada" style=filled]
+	B [fillcolor="#bebada" style=filled]
+	W [fillcolor="#fb8072" style=filled]
+	F [fillcolor="#fb8072" style=filled]
+	A -> R [label="" color=green]
+	A -> S [label="" color=green]
+	R -> W [label="" color=green]
+	R -> F [label="" color=green]
+	S -> H [label="" color=green]
+	S -> B [label="" color=green]
+	H -> F [label="" color=green]
+	B -> F [label="" color=green]
+}

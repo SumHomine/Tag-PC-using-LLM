@@ -1,0 +1,8 @@
+Algo,SHD,SID,(Amount Tags)
+Skeleton,112,N/A,(0)
+PC,12,N/A,(0)
+Typed-PC,39,N/A,(7)
+Tagged-PC_Tag-Majority,7,N/A,(9)
+Tagged-PC_Tag-Weighted,13,N/A,(9)
+Tagged-PC_Tag-Majority_Domain,12,N/A,(61)
+Tagged-PC_Tag-Weighted_Domain,12,N/A,(61)

@@ -1,0 +1,12 @@
+
+Erk : Kinase, notProtein, notPhospholipid, Signaling, MAPK
+Akt : Kinase, Protein, notPhospholipid, notSignaling, notMAPK
+PKA : Kinase, notProtein, notPhospholipid, notSignaling, notMAPK
+Mek : Kinase, notProtein, notPhospholipid, Signaling, MAPK
+Jnk : Kinase, notProtein, notPhospholipid, Signaling, MAPK
+PKC : Kinase, notProtein, notPhospholipid, notSignaling, notMAPK
+Raf : Kinase, notProtein, notPhospholipid, Signaling, MAPK
+P38 : Kinase, notProtein, notPhospholipid, Signaling, MAPK
+PIP3 : notKinase, notProtein, Phospholipid, notSignaling, notMAPK
+PIP2 : notKinase, notProtein, Phospholipid, notSignaling, notMAPK
+Plcg : Kinase, notProtein, notPhospholipid, Signaling, notMAPK

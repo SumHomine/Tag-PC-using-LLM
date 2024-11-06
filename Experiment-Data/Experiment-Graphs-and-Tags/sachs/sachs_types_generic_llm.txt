@@ -1,0 +1,11 @@
+Erk : Kinase
+Akt : Kinase
+PKA : Kinase
+Mek : Kinase
+Jnk : Kinase
+PKC : Kinase
+Raf : Kinase
+P38 : Kinase
+PIP3 : Lipid
+PIP2 : Lipid
+Plcg : Phosphatase

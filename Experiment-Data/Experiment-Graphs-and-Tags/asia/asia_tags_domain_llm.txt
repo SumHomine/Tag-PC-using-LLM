@@ -1,0 +1,9 @@
+
+asia : Infectious, notCancer, notRespiratory, RiskFactor, notDiagnostic
+tub : Infectious, notCancer, Respiratory, notRiskFactor, notDiagnostic
+smoke : notInfectious, notCancer, Respiratory, RiskFactor, notDiagnostic
+lung : notInfectious, Cancer, Respiratory, notRiskFactor, notDiagnostic
+bronc : notInfectious, notCancer, Respiratory, notRiskFactor, notDiagnostic
+either : notInfectious, notCancer, notRespiratory, notRiskFactor, Diagnostic
+xray : notInfectious, notCancer, notRespiratory, notRiskFactor, Diagnostic
+dysp : notInfectious, notCancer, Respiratory, notRiskFactor, notDiagnostic

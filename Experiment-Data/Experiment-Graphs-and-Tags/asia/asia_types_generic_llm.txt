@@ -1,0 +1,8 @@
+asia : Condition
+tub : Condition
+smoke : Risk factor
+lung : Health-related
+bronc : Condition
+either : Diagnostic
+xray : Diagnostic
+dysp : Symptom

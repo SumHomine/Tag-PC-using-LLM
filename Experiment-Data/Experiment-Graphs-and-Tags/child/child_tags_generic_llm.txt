@@ -1,0 +1,21 @@
+
+DuctFlow : Physiological, Diagnostic, notSymptom, notMedical History, notTreatment
+HypDistrib : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+CardiacMixing : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+HypoxiaInO2 : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+LungParench : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+CO2 : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+ChestXray : notPhysiological, Diagnostic, notSymptom, notMedical History, notTreatment
+LungFlow : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+Grunting : notPhysiological, notDiagnostic, Symptom, notMedical History, notTreatment
+Sick : notPhysiological, notDiagnostic, Symptom, notMedical History, notTreatment
+LVH : notPhysiological, Diagnostic, notSymptom, notMedical History, notTreatment
+LVHreport : notPhysiological, Diagnostic, notSymptom, notMedical History, notTreatment
+LowerBodyO2 : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+RUQO2 : Physiological, notDiagnostic, notSymptom, notMedical History, notTreatment
+CO2Report : notPhysiological, Diagnostic, notSymptom, notMedical History, notTreatment
+XrayReport : notPhysiological, Diagnostic, notSymptom, notMedical History, notTreatment
+BirthAsphyxia : notPhysiological, notDiagnostic, notSymptom, Medical History, notTreatment
+Disease : notPhysiological, notDiagnostic, notSymptom, Medical History, notTreatment
+GruntingReport : notPhysiological, Diagnostic, notSymptom, notMedical History, notTreatment
+Age : notPhysiological, notDiagnostic, notSymptom, Medical History, notTreatment

@@ -1,0 +1,12 @@
+
+Erk : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+Akt : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+PKA : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+Mek : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+Jnk : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+PKC : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+Raf : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+P38 : Kinase, notPhosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger
+PIP3 : notKinase, notPhosphatase, notG-Protein Coupled Receptor, Lipid, notProtein, notSignaling, Second Messenger
+PIP2 : notKinase, notPhosphatase, notG-Protein Coupled Receptor, Lipid, notProtein, notSignaling, Second Messenger
+Plcg : notKinase, Phosphatase, notG-Protein Coupled Receptor, notLipid, notProtein, Signaling, notSecond Messenger

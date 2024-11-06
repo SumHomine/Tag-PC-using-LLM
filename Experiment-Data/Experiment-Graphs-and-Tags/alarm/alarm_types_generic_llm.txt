@@ -1,0 +1,37 @@
+LVFAILURE : Medical Condition
+HISTORY : Measurement
+LVEDVOLUME : Physiological
+CVP : Physiological
+PCWP : Physiological
+HYPOVOLEMIA : Medical Condition
+STROKEVOLUME : Physiological
+ERRLOWOUTPUT : Equipment
+HRBP : Physiological
+HR : Physiological
+ERRCAUTER : Equipment
+HREKG : Physiological
+HRSAT : Physiological
+ANAPHYLAXIS : Medical Condition
+TPR : Physiological
+ARTCO2 : Measurement
+EXPCO2 : Measurement
+VENTLUNG : Equipment
+INTUBATION : Equipment
+MINVOL : Physiological
+FIO2 : Measurement
+PVSAT : Physiological
+VENTALV : Equipment
+SAO2 : Physiological
+SHUNT : Medical Condition
+PULMEMBOLUS : Medical Condition
+PAP : Physiological
+PRESS : Physiological
+KINKEDTUBE : Equipment
+VENTTUBE : Equipment
+MINVOLSET : Physiological
+VENTMACH : Equipment
+DISCONNECT : Equipment
+CATECHOL : Treatment
+INSUFFANESTH : Treatment
+CO : Measurement
+BP : Physiological

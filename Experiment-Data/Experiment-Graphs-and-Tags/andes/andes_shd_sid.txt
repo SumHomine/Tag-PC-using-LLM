@@ -1,0 +1,8 @@
+Algo,SHD,SID,(Amount Tags)
+Skeleton,338,34501.0,(0)
+PC,10,N/A,(0)
+Typed-PC,97,N/A,(5) *humanly reduced
+Tagged-PC_Tag-Majority,9,N/A,(172) (=5 echte)
+Tagged-PC_Tag-Weighted,6,N/A,(172) (=5 echte)
+Tagged-PC_Tag-Majority_Domain,9,N/A,(223) (=5 echte)
+Tagged-PC_Tag-Weighted_Domain,9,N/A,(223) (=5 echte)

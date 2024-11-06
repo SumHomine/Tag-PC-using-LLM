@@ -1,0 +1,5 @@
+Pollution : Environmental
+Cancer : Health
+Smoker : Behavioral
+Xray : Diagnostic
+Dyspnoea : Symptom
