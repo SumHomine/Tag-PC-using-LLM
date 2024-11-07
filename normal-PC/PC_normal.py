@@ -61,10 +61,10 @@ def get_data_from_bnf(bnfdata="asia"):
 
 #get data from csv:
 #forest:
-path_forest = "/home/ml-stud19/tagged-pc-using-LLM/generated_forestdata.csv"
+path_forest = "/home/ml-stud19/Tag-PC-using-LLM/generated_forestdata.csv"
 # data, node_names = get_data_from_csv_int(path_to_file=path_forest)
 #bnlearn:
-path_bnlearn = "/home/ml-stud19/tagged-pc-using-LLM/additionalData" 
+path_bnlearn = "/home/ml-stud19/Tag-PC-using-LLM/additionalData" 
 bnfdata = "asia"  # change depending on example
 # data, node_names = get_data_from_csv_string(path_to_folder=path_bnlearn,bnfdata=bnfdata)
 
@@ -86,7 +86,7 @@ cg = pc(data, alpha=alpha, indep_test=indep_test, uc_rule=uc_rule, uc_priority=u
 
 # save graph
 fname = "dag_asia" + indep_test + str(alpha) + ".png"
-dir = "/home/ml-stud19/tagged-pc-using-LLM/normal-PC/figures" #change depending on data
+dir = "/home/ml-stud19/Tag-PC-using-LLM/normal-PC/figures" #change depending on data
 pyd = GraphUtils.to_pydot(cg.G, labels=node_names)
 pyd.write_png(os.path.join(dir,fname))
 
@@ -95,7 +95,7 @@ pyd.write_png(os.path.join(dir,fname))
 def save_bnf_true_graph(bnfdata="asia"):
    # Import DAG
     model = bn.import_DAG(bnfdata)
-    dir_default = "/home/ml-stud19/tagged-pc-using-LLM/normal-PC/figures"
+    dir_default = "/home/ml-stud19/Tag-PC-using-LLM/normal-PC/figures"
     dir = os.path.join(dir_default, f"{bnfdata}_true_graph.png")
     # Plot DAG
     fig, ax = plt.subplots(figsize=(15, 10))  # Create figure and axes
