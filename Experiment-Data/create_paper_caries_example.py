@@ -1,7 +1,7 @@
 from itertools import combinations
 from tag_pc import get_adjacency_mat_from_tag_weight_mat_cycle_check, get_adjacency_matrices_for_all_types, meek_majority_tag_without_typeconsistency, orient_forks_majority_tag_majority_top1, turn_adjacency_mats_to_weighted_prio_mats_depending_on_difference_to_skeleton, typed_meek_majority_tag_with_consistency
 from tag_pc_utils import format_seperating_sets, get_priomat_from_skeleton, get_separating_sets_using_true_skeleton, get_taglist_of_int_from_text, get_undirect_graph, set_tags_as_int  
-from visualization_experiment import create_graph_viz_all_undirected, create_graph_viz_colorless_all_undirected, create_graph_viz_typed_colors_edges_colorless
+from visualization_experiment import create_graph_viz, create_graph_viz_all_undirected, create_graph_viz_colorless_all_undirected, create_graph_viz_typed_colors_edges_colorless
 
 import networkx as nx
 import numpy as np
@@ -96,7 +96,8 @@ def print_graph():
     dir = "Tag-PC-using-LLM/Experiment-Data/caries_example"
     fname = "True-DAG_Caries" 
     create_graph_viz_typed_colors_edges_colorless(dag=true_dag_adjacency_mat, var_names=node_names, types=taglist[0], save_to_dir=dir, fname=fname)
-
+    fname = "True-DAG-Green_Caries"
+    create_graph_viz(dag=true_dag_adjacency_mat, var_names=node_names, types=taglist[0], save_to_dir=dir, fname=fname)
 
 
 print_graph()
