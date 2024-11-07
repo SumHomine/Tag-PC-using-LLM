@@ -121,6 +121,62 @@ def create_graph_viz_typed_colors_edges_colorless(dag: np.ndarray, var_names: li
 
     return g
 
+
+def create_graph_viz_colorless_all_undirected(dag: np.ndarray, var_names: list, types: list, save_to_dir: str, fname="tdag"): #added save_to_dir parameter and changed default name, changed edge addition
+    """ Create a graph from a CPDAG in graphviz for visualization """
+    edge_colors = ["black", "green", "red"]
+ 
+    g = Digraph("G", filename=f"{fname}", format="pdf")
+
+    #XXX Gulfan edit: removed stat_tests and added undirected edges
+    for i in range(dag.shape[0]):
+        for j in range(i):  # iterate only over lower matrix
+            if dag[i, j] == 1 and dag[j, i] == 1:  # undirected edge
+                g.edge(var_names[i], var_names[j], color=edge_colors[0], label="", dir="none") #change dir to none or both depending on preference
+                g.edge(var_names[j], var_names[i], color=edge_colors[0], label="", dir="none", style="invis") #invisible edge to keep nice looking distance
+            elif dag[i, j] == 1:  # directed edge from i to j
+                g.edge(var_names[i], var_names[j], color=edge_colors[0], label="", dir="none")
+            elif dag[j, i] == 1:  # directed edge from j to i 
+                g.edge(var_names[j], var_names[i], color=edge_colors[0], label="", dir="none")
+
+
+    g.render(directory=save_to_dir, overwrite_source=True, cleanup=True) #XXX Guldan edit: added cleanup=True so that no unnecessary dot file ist saved
+
+
+def create_graph_viz_all_undirected(dag: np.ndarray, var_names: list, types: list, save_to_dir: str, fname="tdag"): #added save_to_dir parameter and changed default name, changed edge addition
+    """ Create a graph from a CPDAG in graphviz for visualization """
+    edge_colors = ["black", "green", "red"]
+    
+    if len(np.unique(types)) <= 12:
+        cmap = matplotlib.cm.get_cmap("Set3", 12)
+        node_colors = cmap(np.linspace(0, 1, 12))
+    else:
+        node_colors = plt.get_cmap("hsv")(np.linspace(0, 1.0, len(np.unique(types))))
+    node_colors = [rgb2hex(c) for c in node_colors]
+
+    g = Digraph("G", filename=f"{fname}", format="pdf")
+
+    for i in range(dag.shape[0]):
+        color = node_colors[types[i]]
+        g.node(var_names[i], fillcolor=color, style="filled")
+    
+    #XXX Gulfan edit: removed stat_tests and added undirected edges
+    for i in range(dag.shape[0]):
+        for j in range(i):  # iterate only over lower matrix
+            if dag[i, j] == 1 and dag[j, i] == 1:  # undirected edge
+                g.edge(var_names[i], var_names[j], color=edge_colors[0], label="", dir="none") #change dir to none or both depending on preference
+                g.edge(var_names[j], var_names[i], color=edge_colors[0], label="", dir="none", style="invis") #invisible edge to keep nice looking distance
+            elif dag[i, j] == 1:  # directed edge from i to j
+                g.edge(var_names[i], var_names[j], color=edge_colors[0], label="", dir="none")
+            elif dag[j, i] == 1:  # directed edge from j to i 
+                g.edge(var_names[j], var_names[i], color=edge_colors[0], label="", dir="none")
+
+
+    g.render(directory=save_to_dir, overwrite_source=True, cleanup=True) #XXX Guldan edit: added cleanup=True so that no unnecessary dot file ist saved
+
+
+
+
 def show_data(data, dag, only_child=True):
     n_nodes = data.shape[1]
 
