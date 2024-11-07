@@ -167,8 +167,6 @@ def tpc_tag_weighted(taglist, skeleton, separating_sets, stat_tests, majority_ru
     meek_majority_tag_without_typeconsistency(cpdag=adjacency_mat, tags=taglist, priomat=priomat, node_names=node_names)
     plot_dag_state(dag=adjacency_mat, var_names=node_names, types=taglist[0], step_number=4, experiment_step="meek") # XXX #prints intermediate dag states, comment out if necessary
 
-    #step 5: typed meek ? TODO sinnvoll? glaube nicht
-
     print("priomat result: \n", priomat)
     print("adjacency_mat result: \n", adjacency_mat)
     print("stat_test result: \n", stat_tests)

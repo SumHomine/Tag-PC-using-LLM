@@ -528,7 +528,7 @@ if llm_generated_tags:
     # tags, node_names = run_llm(dataname, deterministic=True) # get tags via LLM for implemented cases
     tags, node_names = run_llm_generic_prompt(node_names=node_names_barley, determinstic=True) # comment out for getting LLM tags via generic prompt #XXX you need top update node_names depending on dataset
 else:
-    tags = asia_tag_ai_experiment_domain #XXX change tag depending on data, see tags above 
+    tags = asia_tag1 #XXX change tag depending on data, see tags above 
 
 equal_majority_rule_tagged = False #true means majority tag, false is weighted tag
 majority_rule_typed = True #majority rule of typing algo, true is normaly the better choice
