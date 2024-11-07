@@ -163,7 +163,7 @@ else:
 dag, stat_tests, node_names, typelist = tpc_from_true_skeleton(dataname=dataname, types=types, majority_rule=majority_rule)
 
 
-dir = "/home/ml-stud19/tagged-pc-using-LLM/typed-PC"
+dir = "Tag-PC-using-LLM/typed-PC"
 fname = "tdag_" + dataname + "_" + "true_skeleton_"  + ("AI_Type_New_" if llm_generated_types else "") +  ("majority" if majority_rule else "naive") + ""
 create_graph_viz(dag=dag, var_names=node_names, types=typelist, save_to_dir=dir, fname=fname) #print using first tag
 # create_graph_viz_colorless(dag=dag, var_names=node_names, types=typelist, save_to_dir=dir, fname="colorless_" + fname) #print using colorless edges

@@ -243,9 +243,9 @@ def get_true_skeleton(dataname : str, tags, data=None):
         #bnlearn directly supports those, we do not need a bif file
         case "asia" | 'sprinkler' :
             path = dataname
-        #we search for a .bif file in tagged-pc-using-LLM/additionalData 
+        #we search for a .bif file in Tag-PC-using-LLM/additionalData 
         case _:
-            path = os.path.join("tagged-pc-using-LLM/additionalData", (dataname + ".bif"))
+            path = os.path.join("Tag-PC-using-LLM/additionalData", (dataname + ".bif"))
             if not (os.path.isfile(path)):
                 raise FileNotFoundError(f"There is no true graph for {dataname}. Check your spelling or create a .bif file in {path}. (If you are lucky there might be one at https://www.bnlearn.com/bnrepository/).") 
         

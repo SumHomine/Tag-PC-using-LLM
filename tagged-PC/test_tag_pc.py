@@ -213,7 +213,7 @@ def test_amount_of_matching_types_for_two_way_fork():
 
 def test_tag_step_by_step():
     # bn.import_example() is not deterministic
-    path_bnlearn = "/home/ml-stud19/tagged-pc-using-LLM/additionalData" 
+    path_bnlearn = "/home/ml-stud19/Tag-PC-using-LLM/additionalData" 
     bnfdata = "insurance"  # change depending on example
     # data, node_names, tags = get_data_from_csv_string(path_to_folder=path_bnlearn,bnfdata=bnfdata)
     type_insurance = """
@@ -288,7 +288,7 @@ def test_tag_step_by_step():
     print(node_names)
 
     #save as pic
-    dir = "tagged-pc-using-LLM/tagged-PC"   
+    dir = "Tag-PC-using-LLM/tagged-PC"   
     fname = "test_" + bnfdata + "_" + "true_skeleton_" + "majority_type_majority_tag" + "_0" #naive_type_majority_tag
     create_graph_viz(dag=current_mat, var_names=node_names, stat_tests=stat_tests, types=taglist[0], save_to_dir=dir, fname=fname) #print using first tag
 
@@ -416,7 +416,7 @@ def test_order_tags():
     """
 
 
-    path = os.path.join("tagged-pc-using-LLM/additionalData", ("insurance" + ".bif"))
+    path = os.path.join("Tag-PC-using-LLM/additionalData", ("insurance" + ".bif"))
     model = bn.import_DAG(path)
     adjacency_mat = model['adjmat']
     node_names = adjacency_mat.columns.tolist()
@@ -1193,7 +1193,7 @@ def print_standard_pc_true_skeleton():
     priomat = get_priomat_from_skeleton(nx.adjacency_matrix(skeleton).todense(), taglist)
     dag, priomat = _orient_only_immoralites(skeleton=skeleton, sep_sets=separating_sets, priomat=priomat, taglist=taglist) #v-strucuteres
     adjacency_mat, priomat = meek_majority_tag_without_typeconsistency(cpdag=nx.adjacency_matrix(dag).todense(), tags=taglist, priomat=priomat, node_names=node_names)# Meek
-    dir = "tagged-pc-using-LLM/tagged-PC"
+    dir = "Tag-PC-using-LLM/tagged-PC"
     fname = "tdag_" + dataname + "_" + "true_skeleton_only_immoralities_and_meek" 
     create_graph_viz_colorless(dag=nx.adjacency_matrix(skeleton).todense(), var_names=node_names, save_to_dir=dir, fname=fname)
 
@@ -1201,13 +1201,13 @@ def print_true_graph():
     dataname = "insurance"
 
     # get Dag from bnf data
-    path = os.path.join("tagged-pc-using-LLM/additionalData", (dataname + ".bif"))
+    path = os.path.join("Tag-PC-using-LLM/additionalData", (dataname + ".bif"))
     model = bn.import_DAG(path)
     adjacency_mat = model['adjmat']
     adjacency_mat = adjacency_mat.astype(int) #get int representation
     node_names = adjacency_mat.columns.tolist()
     adjacency_mat = adjacency_mat.values #delete headers
-    dir = "tagged-pc-using-LLM/tagged-PC"
+    dir = "Tag-PC-using-LLM/tagged-PC"
     fname = "tdag_" + dataname + "_" + "true_graph" 
     create_graph_viz_colorless(dag=adjacency_mat, var_names=node_names, save_to_dir=dir, fname=fname)
 
@@ -1228,7 +1228,7 @@ def print_graph():
     priomat = get_priomat_from_skeleton(nx.adjacency_matrix(skeleton).todense(), taglist)
     dag, priomat = _orient_only_immoralites(skeleton=skeleton, sep_sets=separating_sets, priomat=priomat, taglist=taglist) #v-strucuteres
     adjacency_mat, priomat = meek_majority_tag_without_typeconsistency(cpdag=nx.adjacency_matrix(dag).todense(), tags=taglist, priomat=priomat, node_names=node_names)# Meek
-    dir = "tagged-pc-using-LLM/tagged-PC"
+    dir = "Tag-PC-using-LLM/tagged-PC"
     fname = "tdag_" + dataname + "_" + "true_skeleton_only_immoralities_and_meek" 
     create_graph_viz_colorless_all_undirected(dag=nx.adjacency_matrix(dag).todense(), var_names=node_names, save_to_dir=dir, fname=fname)
 

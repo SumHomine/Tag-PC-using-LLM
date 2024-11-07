@@ -140,7 +140,7 @@ def show_data(data, dag, only_child=True):
 
 #used to plot intermediate states, works the same as create_graph_viz
 def plot_dag_state(dag: np.ndarray, var_names: list, types: list, experiment_step : str, step_number = 0, addiational_name = ""):
-    dir_path = "tagged-pc-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
+    dir_path = "Tag-PC-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
     fname = "tdag_intermediate" + "_step_" + str(step_number) + "_" + experiment_step  + "_" + addiational_name
 
     #copied and changed from create_graph_viz

@@ -20,7 +20,7 @@ def get_data_from_csv_int(path_to_file):
     data = data.astype(int)  # Convert all columns to int for forest
 
     #TODO better way to get types
-    if (path_to_file == "/home/ml-stud19/tagged-pc-using-LLM/generated_forestdata.csv"):
+    if (path_to_file == "Tag-PC-using-LLM/generated_forestdata.csv"):
         #TODO types besser übergeben
         # MAKE SURE THAT NODES ARE IN THE CORRECT ORDER
         tags = """
@@ -141,10 +141,10 @@ def get_data_from_bnf(bnfdata="asia"):
 
 #get data from csv:
 #forest:
-path_forest = "/home/ml-stud19/tagged-pc-using-LLM/generated_forestdata.csv"
+path_forest = "Tag-PC-using-LLM/generated_forestdata.csv"
 # data, node_names, tags = get_data_from_csv_int(path_to_file=path_forest)
 #bnlearn:
-path_bnlearn = "/home/ml-stud19/tagged-pc-using-LLM/additionalData" 
+path_bnlearn = "Tag-PC-using-LLM/additionalData" 
 # bnfdata = "insurance"  # change depending on example
 # data, node_names, tags = get_data_from_csv_string(path_to_folder=path_bnlearn,bnfdata=bnfdata)
 
@@ -172,7 +172,7 @@ dag, stat_tests, tag_list = tag_pc(data=data, tags=tags, node_names=node_names, 
 
 print(node_names)
 
-dir = "tagged-pc-using-LLM/tagged-PC"
+dir = "Tag-PC-using-LLM/tagged-PC"
 fname = "tdag_" + bnfdata + "_" + indep_test + str(alpha) + ("AI_Tag_" if llm_generated_tags else "") + ("majoritytag_" if equal_majority_rule_tagged else "weightedtag_") + ("majoritytype" if majority_rule_typed else "naivetype") + "_1"
 create_graph_viz(dag=dag, var_names=node_names, types=tag_list[0], save_to_dir=dir, fname=fname) #print using first tag
 if llm_generated_tags: print(f"Ai generated Tags:\n{tags}")  # for debuging TODO ggf. remove for publishen

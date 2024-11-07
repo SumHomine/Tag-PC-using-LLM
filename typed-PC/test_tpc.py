@@ -304,7 +304,7 @@ def test_order_types():
     DrivHist : Fourth
     """
 
-    path = os.path.join("tagged-pc-using-LLM/additionalData", ("insurance" + ".bif"))
+    path = os.path.join("Tag-PC-using-LLM/additionalData", ("insurance" + ".bif"))
     model = bn.import_DAG(path)
     adjacency_mat = model['adjmat']
     node_names = adjacency_mat.columns.tolist()

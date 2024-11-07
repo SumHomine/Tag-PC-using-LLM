@@ -130,7 +130,7 @@ def show_data(data, dag, only_child=True):
 
 #used to plot intermediate states, works the same as create_graph_viz
 def plot_dag_state(dag: np.ndarray, var_names: list, types: list, experiment_step : str, step_number = 0, addiational_name = ""):
-    dir_path = "tagged-pc-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
+    dir_path = "Tag-PC-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
     fname = "tdag_intermediate" + "_step_" + str(step_number) + "_" + experiment_step  + "_" + addiational_name
 
     #copied and changed from create_graph_viz
@@ -164,7 +164,7 @@ def plot_dag_state(dag: np.ndarray, var_names: list, types: list, experiment_ste
 
 #used to alternatively plot intermediate states (used normaly for skeleton), works the same as create_graph_viz but does not use invisible edges to reel in nodes via undirected edges
 def plot_dag_state_only_visible(dag: np.ndarray, var_names: list, types: list, experiment_step : str, step_number = 0, addiational_name = ""):
-    dir_path = "tagged-pc-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
+    dir_path = "Tag-PC-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
     fname = "tdag_intermediate" + "_step_" + str(step_number) + "_" + experiment_step  + "_" + addiational_name
 
     #copied and changed from create_graph_viz
@@ -200,7 +200,7 @@ def plot_dag_state_only_visible(dag: np.ndarray, var_names: list, types: list, e
 def plot_dag_state_fixed_position(dag: np.ndarray, var_names: list, types: list, experiment_step: str, step_number=0, addiational_name=""):
     """ Visualize the intermediate state of a DAG with fixed node positions and more spacing """
     
-    dir_path = "tagged-pc-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
+    dir_path = "Tag-PC-using-LLM/tagged-PC/intermediate_tagPC_dag_states"
     fname = "tdag_intermediate" + "_step_" + str(step_number) + "_" + experiment_step + "_" + addiational_name
 
     # Determine node colors based on types

@@ -992,7 +992,7 @@ def get_amount_difference_two_mats(adjacency_mat, skeleton_mat):
                 difference_counter += 1
     return difference_counter
                    
-# normal typing algo (see tagged-pc-using-LLM/typed-PC/tpc.py) used for tag-weight (and slightly modified)
+# normal typing algo (see Tag-PC-using-LLM/typed-PC/tpc.py) used for tag-weight (and slightly modified)
 def typed_pc_from_true_skeleton (skeleton, separating_sets, typelist, current_tag_number, majority_rule_typed):
     """
     :param typelist: list of int where each entry is a param that mapps to int representation of its type (i.e. [0, 1, 1, 2, 2, 3, 3] ),

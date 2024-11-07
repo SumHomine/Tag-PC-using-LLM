@@ -19,7 +19,7 @@ def get_data_from_csv_int(path_to_file):
     data = data.astype(int)  # Convert all columns to int for forest
 
     #TODO better way to get types
-    if (path_to_file == "/home/ml-stud19/tagged-pc-using-LLM/generated_forestdata.csv"):
+    if (path_to_file == "/home/ml-stud19/Tag-PC-using-LLM/generated_forestdata.csv"):
         #TODO types besser übergeben
         # MAKE SURE THAT NODES ARE IN THE CORRECT ORDER
         types = """
@@ -147,11 +147,11 @@ def get_data_from_bnf(bnfdata="asia"):
 
 #get data from csv:
 #forest:
-path_forest = "/home/ml-stud19/tagged-pc-using-LLM/generated_forestdata.csv"
+path_forest = "/home/ml-stud19/Tag-PC-using-LLM/generated_forestdata.csv"
 bnfdata = "forest" #for naming faile
 # data, node_names, types = get_data_from_csv_int(path_to_file=path_forest)
 #bnlearn:
-path_bnlearn = "/home/ml-stud19/tagged-pc-using-LLM/additionalData" 
+path_bnlearn = "/home/ml-stud19/Tag-PC-using-LLM/additionalData" 
 bnfdata = "insurance"  # change depending on example
 data, node_names, types = get_data_from_csv_string(path_to_folder=path_bnlearn,bnfdata=bnfdata)
 
@@ -170,7 +170,7 @@ dag, stat_tests, typelist = tpc(data=data, types=types, node_names=node_names, a
 print(dag)
 print(stat_tests)
 
-dir = "/home/ml-stud19/tagged-pc-using-LLM/typed-PC"
+dir = "/home/ml-stud19/Tag-PC-using-LLM/typed-PC"
 fname = "tdag_" + bnfdata + "_" + indep_test + str(alpha) + ("majority" if majority_rule else "naive") + "0"
 create_graph_viz(dag=dag, var_names=node_names, types=typelist, save_to_dir=dir, fname=fname)
 

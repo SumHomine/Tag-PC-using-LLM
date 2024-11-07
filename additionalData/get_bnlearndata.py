@@ -7,7 +7,7 @@ from pgmpy.readwrite import BIFWriter
 
 # bnfdata set you want to save
 bnfdata = "asia"
-path = "tagged-pc-using-LLM/additionalData"
+path = "Tag-PC-using-LLM/additionalData"
 
 # Ensure save path exists
 os.makedirs(path, exist_ok=True)
