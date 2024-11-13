@@ -228,8 +228,8 @@ def plot_avg_tag(dir):
     plt.show()
 
 dir = "Tag-PC-using-LLM/Experiment-Data/Experiment-Graphs-and-Tags"
-# plot_shd_data(dir=dir, cut_graph=True)
-# plot_sid_data(dir=dir, cut_graph=True)
-# plot_avg_shd(dir=dir)
-# plot_avg_sid(dir=dir)
+plot_shd_data(dir=dir, cut_graph=True)
+plot_sid_data(dir=dir, cut_graph=True)
+plot_avg_shd(dir=dir)
+plot_avg_sid(dir=dir)
 plot_avg_tag(dir=dir)

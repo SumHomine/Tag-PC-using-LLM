@@ -14,10 +14,7 @@ import bnlearn as bn
 
 from tag_pc_utils import exists_entry_in_forkevidencelist, get_taglist_of_int_from_text, get_typelist_from_text, get_undirect_graph, are_forks_clashing, set_types_as_int, set_tags_as_int, format_seperating_sets, _has_both_edges, _has_any_edge, _has_directed_edge, _orient_tagged, _orient_typeless_with_priomat, type_of_from_tag_single, type_of_from_tag_all, type_of_from_tag_all_from_taglist, _update_tedge_orientation, _orient_tedges, get_majority_tag_matrix, get_majority_tag_matrix_using_priomat_type_majority, orient_tagged_dag_after_majority_tag_matix_using_prio_mat, amount_of_matching_types_for_two_way_fork, amount_of_matching_types_for_two_way_fork_from_taglist, get_list_of_matching_types_for_two_way_fork, get_priomat_from_skeleton, get_separating_sets_using_true_skeleton
 from visualization import plot_dag_state
-# from test_tag_pc import load_skeleton, save_skeleton #TODO Comment out before publishing
-
-# TODO before publishing:
-# print print to logging.debug
+# from test_tag_pc import load_skeleton, save_skeleton 
 
 def tpc (data, tags, node_names, alpha=0.05, indep_test="fisherz", majority_rule_tagged=False, majority_rule_typed=True):
     """

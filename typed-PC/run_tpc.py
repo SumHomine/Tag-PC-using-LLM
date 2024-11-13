@@ -18,9 +18,7 @@ def get_data_from_csv_int(path_to_file):
     data = df.iloc[1:].values
     data = data.astype(int)  # Convert all columns to int for forest
 
-    #TODO better way to get types
     if (path_to_file == "/home/ml-stud19/Tag-PC-using-LLM/generated_forestdata.csv"):
-        #TODO types besser übergeben
         # MAKE SURE THAT NODES ARE IN THE CORRECT ORDER
         types = """
             A : Producer
@@ -51,7 +49,6 @@ def get_data_from_csv_string(path_to_folder, bnfdata = "insurance"):
     data = df_num.values # get data as nd.array
     data = data.astype(int) # Convert all columns to int as failsafe
 
-    #TODO better way to get types
     match bnfdata:
         case "insurance":
             # like constintou et. al: we assigned types to variables by randomly partitioning the topological ordering of the DAGs into groups
@@ -166,9 +163,8 @@ indep_test = "fisherz"
 majority_rule = False
 dag, stat_tests, typelist = tpc(data=data, types=types, node_names=node_names, alpha=alpha, indep_test=indep_test, majority_rule=majority_rule) #kci gives good results but takes alot of cumputing power
 
-#TODO comment out
 print(dag)
-print(stat_tests)
+#print(stat_tests)
 
 dir = "/home/ml-stud19/Tag-PC-using-LLM/typed-PC"
 fname = "tdag_" + bnfdata + "_" + indep_test + str(alpha) + ("majority" if majority_rule else "naive") + "0"

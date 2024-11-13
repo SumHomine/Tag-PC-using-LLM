@@ -521,14 +521,14 @@ forest_data = forest_data = df.iloc[1:].values.astype(int)  # Convert all column
 
 # Change Here
 # data = forest_data #comment back in when using forest
-dataname = "asia" #see possible Strings in tpc_from_true_skeleton (TODO)
-llm_generated_tags = False #when False, check assigned tag in line 288 #TODO check line number before publishing
+dataname = "asia" #see possible Strings in Tag-PC-using-LLM/additionalData 
+llm_generated_tags = False #when False, check assigned tag in line 531
 
 if llm_generated_tags:
     # tags, node_names = run_llm(dataname, deterministic=True) # get tags via LLM for implemented cases
     tags, node_names = run_llm_generic_prompt(node_names=node_names_barley, determinstic=True) # comment out for getting LLM tags via generic prompt #XXX you need top update node_names depending on dataset
 else:
-    tags = asia_tag1 #XXX change tag depending on data, see tags above 
+    tags = asia_tag_ai_generated #XXX change tag depending on data, see tags above 
 
 equal_majority_rule_tagged = False #true means majority tag, false is weighted tag
 majority_rule_typed = True #majority rule of typing algo, true is normaly the better choice
@@ -538,5 +538,5 @@ dag, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=datana
 
 dir = "Tag-PC-using-LLM/tagged-PC"
 fname = "tdag_" + dataname + "_" + "true_skeleton_" + ("AI_Tag_New_" if llm_generated_tags else "") + ("majoritytag_" if equal_majority_rule_tagged else "weightedtag_") + ("majoritytype" if majority_rule_typed else "naivetype") + "_0" # + "_multitag1_topo_person_car" # _weather_watervapor
-create_graph_viz(dag=dag, var_names=node_names, types=taglist[0], save_to_dir=dir, fname=fname) #print using first tag #TODO tagging sichtbarer machen
-if llm_generated_tags: print(f"Ai generated Tags:\n{tags}")  # for debuging TODO ggf. remove for publishen
+create_graph_viz(dag=dag, var_names=node_names, types=taglist[0], save_to_dir=dir, fname=fname) #print using first tag, if you want to see all tags, I suggest using Gimp to do so. Have Fun! 
+if llm_generated_tags: print(f"Ai generated Tags:\n{tags}")

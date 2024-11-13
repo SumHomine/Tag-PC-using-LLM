@@ -383,10 +383,10 @@ def exists_entry_in_forkevidencelist(two_way_evidence, prio_weight, i, k, j):
 def fork_clashes_immorality(dag, fork):
     prio_weight, i, k, j = fork # i <- k -> j
     if _has_only_directed_edge(dag,i,k):
-        print(f"fork {i} <- {k} -> {j} clashes with immorality at {i} -> {k}, deleting it!") #TODO to logging.debug
+        print(f"fork {i} <- {k} -> {j} clashes with immorality at {i} -> {k}, deleting it!")
         return True
     if _has_only_directed_edge(dag,j,k):
-        print(f"fork {i} <- {k} -> {j} clashes with immorality at {j} -> {k}, deleting it!") #TODO to logging.debug
+        print(f"fork {i} <- {k} -> {j} clashes with immorality at {j} -> {k}, deleting it!")
         return True
     return False
 
@@ -501,7 +501,7 @@ def _orient_tagged(dag, n1: int, n2: int, current_type: int):
 
     # Case: orient t-edge
     else:
-        print(f"Orienting t-edge: {t1} --> {t2}") #TODO to logging.debug
+        logging.debug(f"Orienting t-edge: {t1} --> {t2}")
         for _n1, _n2 in permutations(dag.nodes(), 2):
             if type_of_from_tag_single(dag, _n1, current_type) == t1 and type_of_from_tag_single(dag, _n2, current_type) == t2 and _has_both_edges(dag, _n1, _n2):
                 logging.debug(f"... Orienting {_n1} (t{t1}) -> {_n2} (t{t2})")
@@ -703,7 +703,7 @@ def _update_tedge_orientation(G, type_g, types):
         # Detect oriented t-edges
         if G[a, b] == 1 and G[b, a] == 0:
             if (type_g[types[b], types[a]] == 1):
-                print(f"reorienting type", types[a], "to", types[b], "meaning Graph was type insconsistent!") #TODO to debug.log for publishing
+                print(f"reorienting type", types[a], "to", types[b], "meaning Graph was type insconsistent!") 
             type_g[types[a], types[b]] = 1
             type_g[types[b], types[a]] = 0
 
@@ -797,7 +797,7 @@ def _update_tedge_orientation_majority_prio(G, type_g, types, priomat):
         # Detect oriented t-edges
         if G[a, b] == 1 and G[b, a] == 0:
             if (type_g[types[b], types[a]] == 1):
-                logging.debug(f"adding to type", types[a], "to", types[b], "Graph is not type consistent for this tag!") #TODO netter schreiben, dass soll ja passieren können
+                logging.debug(f"adding to type", types[a], "to", types[b], "Graph is not type consistent for this tag!") #should happen
             logging.debug(f"type g adding {priomat[a,b]/amount_nodes} to types {types[a]} -> {types[b]} because edge {a} -> {b}") 
             type_g[types[a], types[b]] += (priomat[a,b]/amount_nodes) #normalized with graphlength so that max (every evidence is v-structure) = weight of v-structure
             type_g[types[b], types[a]] += 0
@@ -805,7 +805,7 @@ def _update_tedge_orientation_majority_prio(G, type_g, types, priomat):
         # Detect oriented t-edges (other direction)
         if G[b, a] == 1 and G[a, b] == 0:
             if (type_g[types[a], types[b]] == 1):
-                logging.debug(f"adding to type", types[b], "to", types[a], "Graph is not type consistent for this tag!") #TODO netter schreiben, dass soll ja passieren können
+                logging.debug(f"adding to type", types[b], "to", types[a], "Graph is not type consistent for this tag!") #should happen
             logging.debug(f"type g adding {priomat[b,a]/amount_nodes} to types {types[b]} -> {types[a]} because edge {b} -> {a}") 
             type_g[types[b], types[a]] += (priomat[b,a]/amount_nodes) #normalized with graphlength so that max (every evidence is v-structure) = weight of v-structure
             type_g[types[a], types[b]] += 0
@@ -876,7 +876,7 @@ def orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check(c
     :param node_names: list of node_names as strings, not necessary only used for debugging
     :return: np.ndarray-tuple: updated adjacency matrix and priority matrix.
     """
-    print("Orient according to majority-matrix") # TODO loging.Debug
+    print("Orient according to majority-matrix")
     if (len(node_names) < cpdag.shape[0]): # make sure that code works if no node names are given -> if node names are empty just numerate nodes
         node_names = []
         for i in range(cpdag.shape[0]):
@@ -903,9 +903,9 @@ def orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check(c
             # orient edge if typing has more evidence than already obtained
             if (type_weight > max(priomat[a, b], priomat[b, a])):
                 if (cpdag[b, a] == 1): # debug help -> only print out orientation when edge isnt already oriented
-                    print(f"orient edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    print(f"orient edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing")
                 else:
-                    print(f"Update evidence for edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    logging.debug(f"Update evidence for edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing") 
                 _orient_typeless_with_priomat_cycle_check_adjmat(cpdag, a, b, priomat, type_weight)
         
         # same as above but for inverted edges -> should be rare since matrix is sorted by highest entries [a,b]
@@ -914,9 +914,9 @@ def orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check(c
             # orient edge if typing has more evidence than already obtained
             if (type_weight > max(priomat[a, b], priomat[b, a])):
                 if (cpdag[a, b] == 1): # debug help -> only print out orientation when edge isnt already oriented
-                    print(f"orient edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    print(f"orient edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") 
                 else:
-                    print(f"Update evidence for edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    logging.debug(f"Update evidence for edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") 
                 _orient_typeless_with_priomat_cycle_check_adjmat(cpdag, b, a, priomat, type_weight)
 
         
@@ -956,9 +956,9 @@ def orient_tagged_dag_according_majority_tag_matrix_using_prio_mat(cpdag: np.nda
             # orient edge if typing has more evidence than already obtained
             if (type_weight > max(priomat[a, b], priomat[b, a])):
                 if (cpdag[b, a] == 1): # debug help -> only print out orientation when edge isnt already oriented
-                    print(f"orient edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    print(f"orient edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing")
                 else:
-                    print(f"Update evidence for edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    logging.debug(f"Update evidence for edge {node_names[a]} to {node_names[b]} because of {type_weight} type_weight/instances of typing") 
                 cpdag[a, b] = 1 # should already be true
                 cpdag[b, a] = 0
                 priomat[a, b] = type_weight
@@ -970,9 +970,9 @@ def orient_tagged_dag_according_majority_tag_matrix_using_prio_mat(cpdag: np.nda
             # orient edge if typing has more evidence than already obtained
             if (type_weight > max(priomat[a, b], priomat[b, a])):
                 if (cpdag[a, b] == 1): # debug help -> only print out orientation when edge isnt already oriented
-                    print(f"orient edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    print(f"orient edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") 
                 else:
-                    print(f"Update evidence for edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") #TODO to debug.log for publishing
+                    logging.debug(f"Update evidence for edge {node_names[b]} to {node_names[a]} because of {type_weight} type_weight/instances of typing") 
                 cpdag[a, b] = 0 
                 cpdag[b, a] = 1 # should already be true
                 priomat[a, b] = type_weight
@@ -1012,7 +1012,7 @@ def typed_pc_from_true_skeleton (skeleton, separating_sets, typelist, current_ta
     # skeleton, separating_sets, stat_tests, node_names = get_true_skeleton(dataname=dataname, typelist=typelist, *data)
     # wie already have true skeleton -> skip step 1
 
-    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense()) #TODO to Debug.Log
+    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense()) 
 #    save_skeleton(skeleton=skeleton, separating_sets=separating_sets, stat_tests=stat_tests)     # -> use for debugging when you want to save a new skeleton
 #    skeleton, separating_sets, stat_tests = load_skeleton()                                 # -> use for debugging when you dont want to wait to create skeleton -> also comment out create skeleton/seperating_sets
 

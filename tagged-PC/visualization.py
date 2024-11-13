@@ -254,39 +254,3 @@ def plot_dag_state_fixed_position(dag: np.ndarray, var_names: list, types: list,
     g.render(directory=dir_path, overwrite_source=True, cleanup=True)
 
     return g
-
-
-# unused, old graph_viz implementation (TODO delete)
-def create_single_edges_graph_viz(dag: np.ndarray, var_names: list, stat_tests: np.ndarray, types: list, save_to_dir: str, fname="tdag"): #added save_to_dir parameter and changed defauolt name
-    """ Create a graph from a CPDAG in graphviz for visualization """
-    edge_colors = ["green", "red"]
-
-    if len(np.unique(types)) <= 12:
-        cmap = matplotlib.cm.get_cmap("Set3", 12)
-        node_colors = cmap(np.linspace(0, 1, 12))
-    else:
-        node_colors = plt.get_cmap("hsv")(np.linspace(0, 1.0, len(np.unique(types))))
-    node_colors = [rgb2hex(c) for c in node_colors]
-
-    g = Digraph("G", filename=f"figures/{fname}", format="png")
-
-    for i in range(dag.shape[0]):
-        color = node_colors[types[i]]
-        g.node(var_names[i], fillcolor=color, style="filled")
-
-    for i in range(dag.shape[0]):
-        for j in range(dag.shape[1]):
-            if dag[i, j] == 1:
-                if stat_tests[i, j]:  # == 1 if statistically significative
-                    g.edge(
-                        var_names[i],
-                        var_names[j],
-                        color=edge_colors[0],
-                        label="",
-                    )
-                else:
-                    g.edge(var_names[i], var_names[j], color=edge_colors[1])
-
-    g.render(directory=save_to_dir, overwrite_source=True, cleanup=True) #XXX Guldan edit: added cleanup=True so that no unnecessary dot file ist saved
-
-    return g

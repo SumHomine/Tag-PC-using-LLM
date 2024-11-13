@@ -85,8 +85,8 @@ verbose = False #shows more infos - default is false
 cg = pc(data, alpha=alpha, indep_test=indep_test, uc_rule=uc_rule, uc_priority=uc_priority, mvpc=mvpc, verbose=verbose)
 
 # save graph
-fname = "dag_asia" + indep_test + str(alpha) + ".png"
-dir = "/home/ml-stud19/Tag-PC-using-LLM/normal-PC/figures" #change depending on data
+fname = "dag_" + indep_test + str(alpha) + ".png"
+dir = "Tag-PC-using-LLM/normal-PC/figures" #change depending on data
 pyd = GraphUtils.to_pydot(cg.G, labels=node_names)
 pyd.write_png(os.path.join(dir,fname))
 

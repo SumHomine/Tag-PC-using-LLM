@@ -7,14 +7,12 @@ import pandas as pd
 from itertools import combinations, permutations
 from random import shuffle
 
-import time #TODO ggf. entfernen
-
-from tag_pc_utils import _has_both_edges, _has_directed_edge, _orient_typeless_with_priomat_cycle_check_nx, _orient_typeless_with_priomat_cycle_check_adjmat, calculate_shd_sid, contains_cycle, get_taglist_from_llm_output, recover_tag_string_onevsall_using_taglist, set_types, set_types_as_int, set_tags_as_int, get_typelist_from_text, get_taglist_of_string_from_text, turn_taglist_of_string_to_int, get_taglist_of_int_from_text, type_of_from_tag_single, type_of_from_tag_all, amount_of_matching_types_for_two_way_fork, get_priomat_from_skeleton, _orient_typeless_with_priomat, reorder_taglines_in_node_name_order  
-from tag_pc import create_skeleton_using_causallearn, get_true_skeleton, orient_forks_majority_tag_majority_top1, orient_forks_majority_tag_naive_type, typed_meek_majority_tag_with_consistency, meek_majority_tag_without_typeconsistency
-from visualization import create_graph_viz, create_graph_viz_colorless, create_graph_viz_colorless_all_undirected, show_data
+from tag_pc_utils import _orient_typeless_with_priomat_cycle_check_nx, _orient_typeless_with_priomat_cycle_check_adjmat, calculate_shd_sid, contains_cycle, get_taglist_from_llm_output, recover_tag_string_onevsall_using_taglist, set_types, set_types_as_int, set_tags_as_int, get_typelist_from_text, get_taglist_of_string_from_text, turn_taglist_of_string_to_int, get_taglist_of_int_from_text, type_of_from_tag_single, type_of_from_tag_all, amount_of_matching_types_for_two_way_fork, get_priomat_from_skeleton, _orient_typeless_with_priomat  
+from tag_pc import get_true_skeleton, orient_forks_majority_tag_majority_top1, typed_meek_majority_tag_with_consistency, meek_majority_tag_without_typeconsistency
+from visualization import create_graph_viz, create_graph_viz_colorless, create_graph_viz_colorless_all_undirected
 from llm_interface import load_model_pipeline, text_generation, text_reduction_taglist, text_reduction_variable_tags  
 from run_llm_tag_engineering import run_llm, run_llm_generic_prompt
-# This File is for testing purpose only and not necessary for tpc
+# This File is for testing purpose only and not necessary for tag PC
 
 def test_set_types():
     # Create a simple DAG with 3 nodes
@@ -257,7 +255,7 @@ def test_tag_step_by_step():
     skeleton, separating_sets, stat_tests, node_names = get_true_skeleton(dataname=bnfdata, taglist=taglist)
     # skeleton and seperatins_sets are deterministic
     priomat = get_priomat_from_skeleton(nx.adjacency_matrix(skeleton).todense(), taglist)
-    print("priomat \n", priomat) #TODO to Debug.Log
+    print("priomat \n", priomat)
     # testing for errors when orienting v-structures:
     # dag, priomat = _orient_only_immoralites(skeleton=skeleton, sep_sets=separating_sets, priomat=priomat, taglist=taglist) 
 
@@ -344,12 +342,12 @@ def _orient_only_immoralites(skeleton, sep_sets, priomat, taglist):
                 # XXX: had to add the last two conditions in case k is no longer a child due to t-edge orientation
                 print(
                     f"S: orient immorality {i} (t{type_of_from_tag_all(dag, i)}) -> {k} (t{type_of_from_tag_all(dag, k)}) <- {j} (t{type_of_from_tag_all(dag, j)})"
-                ) #TODO to Debug.Log
+                ) 
                 # orient just v-structure ignore tags for now, but add strong entry in prio matrix (since v-strucutre comes from data it should not be overwritten easily later on)
                 prio_weight = len(taglist)
                 _orient_typeless_with_priomat(dag, i, k, priomat, prio_weight)
                 _orient_typeless_with_priomat(dag, j, k, priomat, prio_weight)
-                # print("priomat after orienten v-strucutre: \n", priomat)  #TODO to Debug.Log #still comment out
+                # print("priomat after orienten v-strucutre: \n", priomat)  
                 
                 
     return dag, priomat
@@ -548,7 +546,7 @@ def compare_adjacencymat_to_last_dag(matrix):
             return True, None, None
     return False, last_matrix, matrix
 
-#copied from main for testing - TODO DELETE
+#copied from main for testing
 # get dataset that is stored in strings in csv file
 def get_data_from_csv_string(path_to_folder, bnfdata = "insurance"):
     # Read CSV file and extract node names from first line
@@ -563,7 +561,6 @@ def get_data_from_csv_string(path_to_folder, bnfdata = "insurance"):
     data = df_num.values # get data as nd.array
     data = data.astype(int) # Convert all columns to int as failsafe
 
-    #TODO better way to get types
     match bnfdata:
         case "insurance":
             # like constintou et. al: we assigned types to variables by randomly partitioning the topological ordering of the DAGs into groups
@@ -1108,8 +1105,6 @@ def test_printing_dag():
         F : 3rd Consumer
         """
 
-    #TODO das automatisiert von irgendwo auslesehen
-
     typelist = [0, 1, 1, 2, 2, 3, 3] 
 
     # got the following from running tpc
@@ -1297,14 +1292,14 @@ def test_calculate_shd_sid():
 # test_amount_of_matching_types_for_two_way_fork()
 # test_tag_step_by_step()
 # test_order_tags()
-test_llm()
+# test_llm()
 # test_get_taglist_from_llm_output()
 # test_recover_tag_string_onevsall_using_taglist()
 # test_run_llm_tag_engineering()
 # test_llm_generic_prompt()
 # test_finding_cycles_adjacency_mat()
 # test_cycle_add_edge_nx_graph()
-# test_cycle_add_edge_adjacency()
+test_cycle_add_edge_adjacency()
 # print_standard_pc_true_skeleton()
 # print_true_graph()
 # test_calculate_shd_sid()

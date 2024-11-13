@@ -217,8 +217,6 @@ def test_printing_dag():
         F : 3rd Consumer
         """
 
-    #TODO das automatisiert von irgendwo auslesehen
-
     typelist = [0, 1, 1, 2, 2, 3, 3] 
 
     # got the following from running tpc

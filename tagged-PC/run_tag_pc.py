@@ -19,10 +19,7 @@ def get_data_from_csv_int(path_to_file):
     data = df.iloc[1:].values
     data = data.astype(int)  # Convert all columns to int for forest
 
-    #TODO better way to get types
     if (path_to_file == "Tag-PC-using-LLM/generated_forestdata.csv"):
-        #TODO types besser übergeben
-        # MAKE SURE THAT NODES ARE IN THE CORRECT ORDER
         tags = """
             A : Producer
             R : 1st Consumer
@@ -52,7 +49,6 @@ def get_data_from_csv_string(path_to_folder, bnfdata = "insurance"):
     data = df_num.values # get data as nd.array
     data = data.astype(int) # Convert all columns to int as failsafe
 
-    #TODO better way to get types
     match bnfdata:
         case "insurance":
             # like constintou et. al: we assigned types to variables by randomly partitioning the topological ordering of the DAGs into groups
@@ -154,7 +150,7 @@ data, node_names, tags = get_data_from_bnf(bnfdata)
 
 
 
-llm_generated_tags = False #when False, check assigned tag in line 160 #TODO check line number before publishing
+llm_generated_tags = False #when False, check assigned tag
 
 if llm_generated_tags: # use run_llm for already prompt engineered data or write your own prompt with run_llm_default
     tags, node_names = run_llm(bnfdata, deterministic=True)
@@ -175,4 +171,4 @@ print(node_names)
 dir = "Tag-PC-using-LLM/tagged-PC"
 fname = "tdag_" + bnfdata + "_" + indep_test + str(alpha) + ("AI_Tag_" if llm_generated_tags else "") + ("majoritytag_" if equal_majority_rule_tagged else "weightedtag_") + ("majoritytype" if majority_rule_typed else "naivetype") + "_1"
 create_graph_viz(dag=dag, var_names=node_names, types=tag_list[0], save_to_dir=dir, fname=fname) #print using first tag
-if llm_generated_tags: print(f"Ai generated Tags:\n{tags}")  # for debuging TODO ggf. remove for publishen
+if llm_generated_tags: print(f"Ai generated Tags:\n{tags}") 
