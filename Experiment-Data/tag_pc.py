@@ -2,7 +2,6 @@ import logging
 import networkx as nx
 import numpy as np
 
-from collections import Counter, defaultdict
 from itertools import combinations, permutations
 from typing import Tuple
 from random import shuffle
@@ -12,12 +11,9 @@ from causallearn.utils.cit import *
 
 import bnlearn as bn
 
-from tag_pc_utils import _orient_typeless_with_priomat_cycle_check_adjmat, _orient_typeless_with_priomat_cycle_check_nx, assign_deleted_edges_in_priomat_evidence, exists_entry_in_forkevidencelist, fork_clashes_immorality, get_amount_difference_two_mats, get_taglist_of_int_from_text, get_typelist_from_text, get_undirect_graph, are_forks_clashing, orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check, set_types_as_int, set_tags_as_int, format_seperating_sets, _has_both_edges, _has_any_edge, _has_directed_edge, _orient_tagged, _orient_typeless_with_priomat, type_of_from_tag_single, type_of_from_tag_all, type_of_from_tag_all_from_taglist, _update_tedge_orientation, _orient_tedges, get_majority_tag_matrix, get_majority_tag_matrix_using_priomat_type_majority, amount_of_matching_types_for_two_way_fork, amount_of_matching_types_for_two_way_fork_from_taglist, get_list_of_matching_types_for_two_way_fork, get_priomat_from_skeleton, get_separating_sets_using_true_skeleton, typed_pc_from_true_skeleton
+from tag_pc_utils import _orient_typeless_with_priomat_cycle_check_adjmat, _orient_typeless_with_priomat_cycle_check_nx, assign_deleted_edges_in_priomat_evidence, exists_entry_in_forkevidencelist, fork_clashes_immorality, get_amount_difference_two_mats, get_taglist_of_int_from_text, get_undirect_graph, are_forks_clashing, orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check, set_tags_as_int, format_seperating_sets, _has_both_edges, _has_directed_edge, _orient_typeless_with_priomat, type_of_from_tag_all, get_majority_tag_matrix, get_majority_tag_matrix_using_priomat_type_majority, amount_of_matching_types_for_two_way_fork, get_priomat_from_skeleton, get_separating_sets_using_true_skeleton, typed_pc_from_true_skeleton
 from visualization_experiment import plot_dag_state, plot_dag_state_only_visible
-# from test_tag_pc import load_skeleton, save_skeleton #TODO Comment out before publishing
-
-# TODO before publishing:
-# print print to logging.debug
+# from test_tag_pc import load_skeleton, save_skeleton 
 
 def tag_pc (data, tags, node_names, alpha=0.05, indep_test="fisherz", equal_majority_rule_tagged=True, majority_rule_typed=True):
     """
@@ -44,14 +40,14 @@ def tag_pc (data, tags, node_names, alpha=0.05, indep_test="fisherz", equal_majo
 
     recommended usage regarding tag importance:
     if all tags have the same importance use tag majority (with type majority)
-    if you want to prioritize tags with small changes use tag weighted TODO bessere begründung, wann genau
+    if you want to prioritize tags with small changes use Tag Weighted
     """
     #step 1
     taglist = get_taglist_of_int_from_text(tags=tags, node_names_ordered=node_names) #get Tags as List of List of Int
     skeleton, separating_sets, stat_tests = create_skeleton_using_causallearn(data, taglist, alpha, indep_test) # get skeleton
 
-    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense()) #TODO to Debug.Log
-    plot_dag_state_only_visible(dag=nx.adjacency_matrix(skeleton).todense(), var_names=node_names, types=taglist[0], step_number=0, experiment_step="skeleton") #XXX prints intermediate dag states, comment out if necessary
+    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense()) 
+    # plot_dag_state_only_visible(dag=nx.adjacency_matrix(skeleton).todense(), var_names=node_names, types=taglist[0], step_number=0, experiment_step="skeleton") #XXX prints intermediate dag states, comment out if necessary
 #    save_skeleton(skeleton=skeleton, separating_sets=separating_sets, stat_tests=stat_tests)     # -> use for debugging when you want to save a new skeleton
 #    skeleton, separating_sets, stat_tests = load_skeleton()                                 # -> use for debugging when you dont want to wait to create skeleton -> also comment out create skeleton/seperating_sets
 
@@ -85,12 +81,12 @@ def tag_pc_from_true_skeleton (dataname : str, tags, equal_majority_rule_tagged=
 
     recommended usage regarding tag importance:
     if all tags have the same importance use tag majority (with type majority)
-    if you want to prioritize tags with small changes use tag weighted TODO bessere begründung, wann genau
+    if you want to prioritize tags with small changes use Tag Weighted 
     """
     #step 1 from true skelton
     skeleton, separating_sets, stat_tests, node_names, taglist = get_true_skeleton(dataname=dataname, tags=tags, data=data)
 
-    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense()) #TODO to Debug.Log
+    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense()) 
     plot_dag_state_only_visible(dag=nx.adjacency_matrix(skeleton).todense(), var_names=node_names, types=taglist[0], step_number=0, experiment_step="skeleton") #XXX prints intermediate dag states, comment out if necessary
 #    save_skeleton(skeleton=skeleton, separating_sets=separating_sets, stat_tests=stat_tests)     # -> use for debugging when you want to save a new skeleton
 #    skeleton, separating_sets, stat_tests = load_skeleton()                                 # -> use for debugging when you dont want to wait to create skeleton -> also comment out create skeleton/seperating_sets
@@ -113,14 +109,14 @@ def tpc_tag_majority(taglist, skeleton, separating_sets, stat_tests, majority_ru
     :return: adjacency matrix of the DAG of type np.ndarray
     """  
     priomat = get_priomat_from_skeleton(nx.adjacency_matrix(skeleton).todense(), taglist)
-    print("priomat \n", priomat) #TODO to Debug.Log
+    print("priomat \n", priomat) 
 
     #Step 2 - V Structues + Two Type Forks
     if (majority_rule_typed):
         dag, priomat = orient_forks_majority_tag_majority_top1(skeleton=skeleton, sep_sets=separating_sets, priomat=priomat, taglist=taglist, node_names=node_names)
     else:
         dag, priomat = orient_forks_majority_tag_naive_type(skeleton=skeleton, sep_sets=separating_sets, priomat=priomat, taglist=taglist, node_names=node_names)
-    plot_dag_state(dag=nx.adjacency_matrix(dag).todense(), var_names=node_names, types=taglist[0], step_number=1, experiment_step="orienting_forks_v_structures") # XXX comment out before publishing #comment in for intermediate dag states
+    # plot_dag_state(dag=nx.adjacency_matrix(dag).todense(), var_names=node_names, types=taglist[0], step_number=1, experiment_step="orienting_forks_v_structures") # XXX comment out before publishing #comment in for intermediate dag states
 
     #Step 3 - T-Propagation without type consistency
     adjacency_mat, priomat = meek_majority_tag_without_typeconsistency(cpdag=nx.adjacency_matrix(dag).todense(), tags=taglist, priomat=priomat, node_names=node_names)
@@ -130,7 +126,7 @@ def tpc_tag_majority(taglist, skeleton, separating_sets, stat_tests, majority_ru
 
     #Step 4 - T-Propagation with Tag_majority Consistency by using priomat
     adjacency_mat, priomat = typed_meek_majority_tag_with_consistency(cpdag=adjacency_mat, tags=taglist, priomat=priomat, majority_rule_typed=majority_rule_typed, node_names=node_names)
-    plot_dag_state(dag=adjacency_mat, var_names=node_names, types=taglist[0], step_number=3, experiment_step="meek_type_consistency") # XXX comment out before publishing #comment in for intermediate dag states
+    # plot_dag_state(dag=adjacency_mat, var_names=node_names, types=taglist[0], step_number=3, experiment_step="meek_type_consistency") # XXX comment out before publishing #comment in for intermediate dag states
 
 
     print("priomat result: \n", priomat)
@@ -148,7 +144,6 @@ def tpc_tag_weighted(taglist, skeleton, separating_sets, stat_tests, majority_ru
     :param + return: stat_tests of the DAG of type np.ndarray  (obtained in skeleton discovery and not changed here)
     :return: adjacency matrix of the DAG of type np.ndarray
     """  
-    #TODO comments verbesserns
     #step 1: make typed adjacency matrix for every type in tag
     adjacency_mats_list = get_adjacency_matrices_for_all_types(skeleton=skeleton, separating_sets=separating_sets, taglist=taglist, majority_rule_typed=majority_rule_typed)
     # for i in range(len(adjacency_mats_list)): #plot adjacency mat for all types: #not necessary -> comment out if needed
@@ -160,12 +155,12 @@ def tpc_tag_weighted(taglist, skeleton, separating_sets, stat_tests, majority_ru
 
     #step 3: sum weight matrices (so that you have a balance between many types and strong types), then make adjacency matrix for each stronger direction 
     adjacency_mat, priomat, weight_mat = get_adjacency_mat_from_tag_weight_mat_cycle_check(weight_mats_list=weight_mats_list, skeleton_mat=nx.adjacency_matrix(skeleton).todense(), taglist=taglist, node_names=node_names)
-    plot_dag_state(dag=adjacency_mat, var_names=node_names, types=taglist[0], step_number=3, experiment_step="weights_accumulated") # XXX #prints intermediate dag states, comment out if necessary
+    # plot_dag_state(dag=adjacency_mat, var_names=node_names, types=taglist[0], step_number=3, experiment_step="weights_accumulated") # XXX #prints intermediate dag states, comment out if necessary
     print("weight matrix: \n", weight_mat)
 
     #step 4: meek without type consistency (same as majority alg)
     meek_majority_tag_without_typeconsistency(cpdag=adjacency_mat, tags=taglist, priomat=priomat, node_names=node_names)
-    plot_dag_state(dag=adjacency_mat, var_names=node_names, types=taglist[0], step_number=4, experiment_step="meek") # XXX #prints intermediate dag states, comment out if necessary
+    # plot_dag_state(dag=adjacency_mat, var_names=node_names, types=taglist[0], step_number=4, experiment_step="meek") # XXX #prints intermediate dag states, comment out if necessary
 
     print("priomat result: \n", priomat)
     print("adjacency_mat result: \n", adjacency_mat)
@@ -201,9 +196,9 @@ def create_skeleton_using_causallearn(data, taglist, alpha, indep_test):
 
     separating_sets = format_seperating_sets(separating_sets)
     
-    print("seperating sets Formated \n") #TODO to Debug.Log
+    print("seperating sets Formated \n") 
     for (i, j) in list(combinations(range(node_ids), 2)):
-        print(f"seperating set of {i} and {j} is: {separating_sets[i][j]}") #TODO to Debug.Log
+        print(f"seperating set of {i} and {j} is: {separating_sets[i][j]}") 
 
     stat_tests = nx.adjacency_matrix(skeleton).todense()
 
@@ -236,7 +231,7 @@ def get_true_skeleton(dataname : str, tags, data=None):
                 raise ValueError("since you are using non bnf data, you need give the function data ad np.ndarray")
             node_names = ["A","R","S","H","B","W","F"]
             taglist = get_taglist_of_int_from_text(tags, node_names)
-            skeleton, separating_sets, stat_tests = create_skeleton_using_causallearn(data, taglist, alpha = 0.05, indep_test="fisherz") #TODO
+            skeleton, separating_sets, stat_tests = create_skeleton_using_causallearn(data, taglist, alpha = 0.05, indep_test="fisherz")
             return skeleton, separating_sets, stat_tests, node_names, taglist
         #bnlearn directly supports those, we do not need a bif file
         case "asia" | 'sprinkler' :
@@ -272,8 +267,8 @@ def get_true_skeleton(dataname : str, tags, data=None):
 
     separating_sets = format_seperating_sets(separating_sets)
 
-    print("seperating sets Formated \n") #TODO to Debug.Log
-#    print("seperating sets: \n", separating_sets) #TODO to Debug.Log
+    print("seperating sets Formated \n") 
+#    print("seperating sets: \n", separating_sets) 
     for (i, j) in list(combinations(range(node_ids), 2)):
         logging.debug(f"seperating set of {i} {node_names[i]} and {j} {node_names[j]} is: {separating_sets[i][j]}")
 
@@ -281,7 +276,7 @@ def get_true_skeleton(dataname : str, tags, data=None):
 
 
 # the rest of the code is taken from https://github.com/ServiceNow/typed-dag and strongly modified for tagged
-# -------------------------------- algo-steps for tag majority -------------------------------------
+# -------------------------------- algo-steps for Tag Majority -------------------------------------
 
 #######
 # This is the part where we orient all immoralities and two-type forks.
@@ -317,7 +312,7 @@ def orient_forks_majority_tag_naive_type(skeleton, sep_sets, priomat, taglist, n
             node_names.append(i)
 
 
-    print("orient forks tag majority type naive")
+    print("orient forks Tag Majority type naive")
     
 
     # Orient all immoralities and two-type forks
@@ -348,13 +343,13 @@ def orient_forks_majority_tag_naive_type(skeleton, sep_sets, priomat, taglist, n
                 # XXX: had to add the last two conditions in case k is no longer a child due to t-edge orientation
                 print(
                     f"V: orient immorality {node_names[i]} (t{type_of_from_tag_all(dag, i)}) -> {node_names[k]} (t{type_of_from_tag_all(dag, k)}) <- {node_names[j]} (t{type_of_from_tag_all(dag, j)})"
-                ) #TODO to Debug.Log
+                ) 
                 # orient just v-structure ignore tags for now, but add strong entry in prio matrix (since v-strucutre comes from data it should not be overwritten easily later on)
                 prio_weight = len(taglist)
-                print("V-Structure_prio_weight: ", prio_weight)#TODO to Debug.Log
+                print("V-Structure_prio_weight: ", prio_weight)
                 _orient_typeless_with_priomat(dag, i, k, priomat, prio_weight)
                 _orient_typeless_with_priomat(dag, j, k, priomat, prio_weight)
-                # print("priomat: \n", priomat)  #TODO to Debug.Log
+                # print("priomat: \n", priomat)  
                 
 
             # Case: we have an orientable two-type fork, i.e., it is not an immorality, so i <- k -> j 
@@ -366,7 +361,7 @@ def orient_forks_majority_tag_naive_type(skeleton, sep_sets, priomat, taglist, n
             ):                
                 print(
                     f"F: orient two-type fork {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)})"
-                ) #TODO to Debug.Log
+                ) 
                 # orient both edges if they dont already have a higher prio
                 if (priomat[k][i] <= prio_weight and priomat[k][j] <= prio_weight):
                     _orient_typeless_with_priomat_cycle_check_nx(dag, k, i, priomat, prio_weight) 
@@ -388,7 +383,7 @@ def orient_forks_majority_tag_naive_type(skeleton, sep_sets, priomat, taglist, n
             ):                
                 print(
                     f"F: orient two-type fork to predecesor {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)})"
-                ) #TODO to Debug.Log
+                ) 
                 # orient both edges if they dont already have a higher prio
                 if (priomat[k][i] <= prio_weight and priomat[k][j] <= prio_weight):
                     _orient_typeless_with_priomat_cycle_check_nx(dag, k, i, priomat, prio_weight) 
@@ -397,8 +392,8 @@ def orient_forks_majority_tag_naive_type(skeleton, sep_sets, priomat, taglist, n
                     print(f"Not enough Prio Evidence to orient {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)})")
                         
 
-    print("orienting forks finished - current adj. matrix: \n", nx.adjacency_matrix(dag).todense()) #TODO to Debug.Log
-    print("current priomat: \n", priomat) #TODO to Debug.Log
+    print("orienting forks finished - current adj. matrix: \n", nx.adjacency_matrix(dag).todense()) 
+    print("current priomat: \n", priomat) 
     return dag, priomat
 
 
@@ -428,7 +423,7 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
         for i in range(len(node_ids)):
             node_names.append(i)
 
-    print("orient forks tag majority type majority \n")
+    print("orient forks Tag Majority type majority \n")
     
     # Orient all immoralities and two-type forks
     # XXX: SERVICENOW DEBUG using shuffling to test hypothesis (very helpful actually thank you for including this <3)
@@ -461,12 +456,12 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
                 # XXX: had to add the last two conditions in case k is no longer a child due to new orientation
                 print(
                     f"V: orient immorality {node_names[i]} (t{type_of_from_tag_all(dag, i)}) -> {node_names[k]} (t{type_of_from_tag_all(dag, k)}) <- {node_names[j]} (t{type_of_from_tag_all(dag, j)})"
-                ) #TODO to Debug.Log
+                ) 
                 # orient just v-structure ignore tags for now, but add strong entry in prio matrix (since v-strucutre comes from data it should not be overwritten easily later on)
                 prio_weight = len(taglist)
                 _orient_typeless_with_priomat(dag, i, k, priomat, prio_weight)
                 _orient_typeless_with_priomat(dag, j, k, priomat, prio_weight)
-                # print("priomat after orienten v-strucutre: \n", priomat)  #TODO to Debug.Log #still comment out
+                # print("priomat after orienten v-strucutre: \n", priomat)   #still comment out
                 
 
             # Case: we have an orientable two-type fork, i.e., it is not an immorality, so i <- k -> j
@@ -478,7 +473,7 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
             ):
                 print(
                     f"F: found two-type fork {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)} saving for orienting)"
-                ) #TODO to Debug.Log
+                ) 
                 # safe two way fork just for now
                 two_way_evidence.append([prio_weight, i, k, j])
 
@@ -498,7 +493,7 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
                 if not (exists_entry_in_forkevidencelist(two_way_evidence, prio_weight, i, k, j)):
                     print(
                         f"F: found two-type fork to predecesor {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)} saving for orienting)"
-                    ) #TODO to Debug.Log
+                    ) 
                     two_way_evidence.append([prio_weight, i, k, j])
                 else: 
                     # print(f"two way fork {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)}) found but already saved") #comment back in if necessary
@@ -521,7 +516,6 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
             if index != other_index:
                 other_prio_weight, other_i, other_k, other_j = other_fork
 
-                # TODO Condition testen
                 # if any other two_way_fork has an opposed edge -> we have a clash meaning different oriented forks and have to decide which one to orient 
                 if are_forks_clashing(two_way_fork, other_fork):
                     clash_found = True
@@ -537,7 +531,7 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
                 if (priomat[k][i] <= prio_weight and priomat[k][j] <= prio_weight):
                     print(
                         f"Clash found -> orienting two-type fork {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)}. despite of clash with at least fork {node_names[other_i]} <- {node_names[other_k]} -> {node_names[other_j]} with prio: {other_prio_weight} < now orienting fork: {prio_weight}. )"
-                    ) #TODO to Debug.Log
+                    ) 
                     _orient_typeless_with_priomat_cycle_check_nx(dag, k, i, priomat, prio_weight)
                     _orient_typeless_with_priomat_cycle_check_nx(dag, k, j, priomat, prio_weight)
             else:
@@ -549,7 +543,7 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
             if (priomat[k][i] < prio_weight and priomat[k][j] < prio_weight):
                 print(
                     f"orienting two-type fork {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)})"
-                ) #TODO to Debug.Log
+                ) 
                 _orient_typeless_with_priomat_cycle_check_nx(dag, k, i, priomat, prio_weight)
                 _orient_typeless_with_priomat_cycle_check_nx(dag, k, j, priomat, prio_weight)
             # orient v-structures that are already partily oriented (and therefore have a higher priomat entry) (actually necessary)
@@ -557,21 +551,21 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
                 if (priomat[k][i] < prio_weight and _has_directed_edge(dag, k, j)): #case k-i unoriented, k->j oriented
                     print(
                         f"orienting part of two-type fork {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) with already oriented: {node_names[k]} -> {node_names[j]} (t{type_of_from_tag_all(dag, j)} (with oriented prio {node_names[k]} -> {node_names[j]}: {priomat[k][j]} and new oriented lower prio {node_names[k]} -> {node_names[i]}: {prio_weight})."
-                    ) #TODO to Debug.Log
+                    ) 
                     _orient_typeless_with_priomat_cycle_check_nx(dag, k, i, priomat, prio_weight) #orient only k->i and only give it prioweight as k->j already has stronger evidence
                 elif (priomat[k][j] < prio_weight and _has_directed_edge(dag, k, i)): #case k-j unoriented, k->i oriented
                     print(
                         f"orienting part of two-type fork {node_names[j]} (t{type_of_from_tag_all(dag, j)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) with already oriented: {node_names[k]} -> {node_names[i]} (t{type_of_from_tag_all(dag, i)} (with oriented prio {node_names[k]} -> {node_names[i]}: {priomat[k][i]} and new oriented lower prio {node_names[k]} -> {node_names[i]}: {prio_weight})."
-                    ) #TODO to Debug.Log
+                    ) 
                     _orient_typeless_with_priomat_cycle_check_nx(dag, k, j, priomat, prio_weight) #orient only k->j and only give it prioweight as k->i already has stronger evidence
                 else:
                     print(
                         f"not orienting two-type fork {node_names[i]} (t{type_of_from_tag_all(dag, i)}) <- {node_names[k]} (t{type_of_from_tag_all(dag, k)}) -> {node_names[j]} (t{type_of_from_tag_all(dag, j)} because edges are already oriented with better evidence)"
-                    ) #TODO to Debug.Log
+                    ) 
 
 
-    print("orienting forks finished - current adj. matrix: \n", nx.adjacency_matrix(dag).todense()) #TODO to Debug.Log
-    print("current priomat: \n", priomat) #TODO to Debug.Log
+    print("orienting forks finished - current adj. matrix: \n", nx.adjacency_matrix(dag).todense()) 
+    print("current priomat: \n", priomat) 
     return dag, priomat
 
 
@@ -623,11 +617,11 @@ def meek_majority_tag_without_typeconsistency(cpdag: np.ndarray, tags: list, pri
 
             # R1: c -> a - b, b-/-c ==> a -> b
             if G[a, c] == 0 and G[c, a] == 1 and G[b, c] == 0 and G[c, b] == 0 and ((prioweight := min(priomat[a,c], priomat[c, a], priomat[b,c], priomat[c,b])) > max(priomat[b,a], priomat[a, b])): #check that prio evidence is stronger than the to orient edge
-                print(f"meek R1: {node_names[c]} -> {node_names[a]} - {node_names[b]}: orient to  {node_names[a]} -> {node_names[b]}")  #TODO to Debug.Log
+                print(f"meek R1: {node_names[c]} -> {node_names[a]} - {node_names[b]}: orient to  {node_names[a]} -> {node_names[b]}")  
                 _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
             # R2: a -> c -> b and a - b ==> a -> b
             elif G[a, c] == 1 and G[c, a] == 0 and G[b, c] == 0 and G[c, b] == 1 and ((prioweight := min(priomat[a,c], priomat[c, a], priomat[b,c], priomat[c,b])) > max(priomat[b,a], priomat[a, b])): #check that prio evidence is stronger than the to orient edge
-                print(f"meek R2: {node_names[a]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[b]}: orient to {node_names[a]} -> {node_names[b]}")  #TODO to Debug.Log
+                print(f"meek R2: {node_names[a]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[b]}: orient to {node_names[a]} -> {node_names[b]}")  
                 _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
             # XXX no R5 since all possible 2-Way Forks where already tested
             else:
@@ -648,7 +642,7 @@ def meek_majority_tag_without_typeconsistency(cpdag: np.ndarray, tags: list, pri
                             and G[d, c] == 0
                             and ((prioweight := min(priomat[b,c], priomat[c,b], priomat[b,d], priomat[d,b], priomat[c,d], priomat[d,c])) > max(priomat[b,a], priomat[a,b])) #check that prio evidence (of oriented edges) is stronger than the to orient edge 
                         ):
-                            print(f"meek R3: {node_names[a]} - {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[d]} -> {node_names[b]} and {node_names[c]} -/- {node_names[d]} orient to {node_names[a]} -> {node_names[b]} ")  #TODO to Debug.Log
+                            print(f"meek R3: {node_names[a]} - {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[d]} -> {node_names[b]} and {node_names[c]} -/- {node_names[d]} orient to {node_names[a]} -> {node_names[b]} ")  
                             _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
                         # R4: a - d -> c -> b and a - - c ==> a -> b
                         elif (
@@ -661,7 +655,7 @@ def meek_majority_tag_without_typeconsistency(cpdag: np.ndarray, tags: list, pri
                             and (G[a, c] == 1 or G[c, a] == 1)
                             and ((prioweight := min(priomat[c,d], priomat[d,c], priomat[b,c], priomat[c,b])) > max(priomat[b,a], priomat[a,b])) #check that prio evidence (of oriented edges) is stronger than the to orient edge 
                         ):
-                            print(f"meek R4: {node_names[a]} - {node_names[d]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} -> {node_names[c]} or {node_names[c]} -> {node_names[a]} orient to {node_names[a]} -> {node_names[b]} ")  #TODO to Debug.Log
+                            print(f"meek R4: {node_names[a]} - {node_names[d]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} -> {node_names[c]} or {node_names[c]} -> {node_names[a]} orient to {node_names[a]} -> {node_names[b]} ")  
                             _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
 
         if (previous_G == G).all():
@@ -671,8 +665,8 @@ def meek_majority_tag_without_typeconsistency(cpdag: np.ndarray, tags: list, pri
 
         previous_G = np.copy(G)
 
-    print("typed meek without type consistency finished - current adjacency matrix: \n", G) #TODO to Debug.Log
-    print("current priomat: \n", priomat) #TODO to Debug.Log
+    print("typed meek without type consistency finished - current adjacency matrix: \n", G) 
+    print("current priomat: \n", priomat) 
     return G, priomat
 
 # step 4 type-consistent t-propagation
@@ -691,7 +685,7 @@ def typed_meek_majority_tag_with_consistency(cpdag: np.ndarray, tags: list, prio
     :return priomat: uptated priomat (np.ndarray)
     """
     print("\ntyped Meek with type consistency \n")
-    # priomat checks are mostly redundant here, since a,b is undirected and should therefore have prioweight 0 #TODO
+    # priomat checks are mostly redundant here, since a,b is undirected and should therefore have prioweight 0 
 
     n_nodes = cpdag.shape[0]
 
@@ -706,8 +700,8 @@ def typed_meek_majority_tag_with_consistency(cpdag: np.ndarray, tags: list, prio
     # or too high number of iteration
     previous_G = np.copy(G)
     i = 0
-    while True and i < iter_max: #TODO while true entfernen
-        """ #TODO desc updaten
+    while True and i < iter_max:
+        """
         Each iteration is broken down into three stages:
         1) Get Matrix where each for each tag type consistency is applied (according to majority_rule)
         2) Orient edges where tag consitency evidence (from 1) is stronger than current evidence
@@ -721,9 +715,9 @@ def typed_meek_majority_tag_with_consistency(cpdag: np.ndarray, tags: list, prio
         # Step 1: get adjacency matrix where each entry is the amount of tags (with each tag being one typelist) for which this edge will be oriented in this direction for the current Graph
         # depending of type majority rule, we either get this adhjacency matrix via first encountered type consistency in each type (=naive) or via the majority of t-edges (considering priomat) (=majority)
         majoritymat =  get_majority_tag_matrix_using_priomat_type_majority(G, taglist=tags, priomat=priomat) if majority_rule_typed else get_majority_tag_matrix(G, taglist=tags) 
-        print(f"majority mat on t-propagation step: {i}: \n", majoritymat) #TODO to logging.debug
-        print(f"priomat before type consistency: \n", priomat) #TODO to logging.debug
-        print(f"adjacency mat before type consistency: \n", G) #TODO to Debug.Log
+        print(f"majority mat on t-propagation step: {i}: \n", majoritymat) 
+        print(f"priomat before type consistency: \n", priomat) 
+        print(f"adjacency mat before type consistency: \n", G) 
 
         # Step 2: Orient all Edges where there is a higher type consisitency evidence for the current Graph (entry in majoritymat) than already priority in priomat
         G, priomat = orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check(G, tags, majoritymat, priomat, node_names=node_names)
@@ -737,11 +731,11 @@ def typed_meek_majority_tag_with_consistency(cpdag: np.ndarray, tags: list, prio
 
             # R1: c -> a - b ==> a -> b
             if G[a, c] == 0 and G[c, a] == 1 and G[b, c] == 0 and G[c, b] == 0 and ((prioweight := min(priomat[a,c], priomat[c, a], priomat[b,c], priomat[c,b])) > max(priomat[b,a], priomat[a, b])): #check that prio evidence is stronger than the to orient edge
-                print(f"meek R1: {node_names[c]} -> {node_names[a]} - {node_names[b]}: orient to  {node_names[a]} -> {node_names[b]}")  #TODO to Debug.Log
+                print(f"meek R1: {node_names[c]} -> {node_names[a]} - {node_names[b]}: orient to  {node_names[a]} -> {node_names[b]}")  
                 _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
             # R2: a -> c -> b and a - b ==> a -> b
             elif G[a, c] == 1 and G[c, a] == 0 and G[b, c] == 0 and G[c, b] == 1 and ((prioweight := min(priomat[a,c], priomat[c, a], priomat[b,c], priomat[c,b])) > max(priomat[b,a], priomat[a, b])): #check that prio evidence is stronger than the to orient edge
-                print(f"meek R2: {node_names[a]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[b]}: orient to {node_names[a]} -> {node_names[b]}")  #TODO to Debug.Log
+                print(f"meek R2: {node_names[a]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[b]}: orient to {node_names[a]} -> {node_names[b]}")  
                 _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
             # No R5 because why should I? R 5: b - a - c and a-/-c and t(c) = t(b) ==> a -> b and a -> c (two-type fork)
             else:
@@ -761,7 +755,7 @@ def typed_meek_majority_tag_with_consistency(cpdag: np.ndarray, tags: list, prio
                             and G[d, c] == 0
                             and ((prioweight := min(priomat[b,c], priomat[c,b], priomat[b,d], priomat[d,b], priomat[c,d], priomat[d,c])) > max(priomat[b,a], priomat[a,b])) #check that prio evidence (of oriented edges) is stronger than the to orient edge 
                         ):
-                            print(f"meek R3: {node_names[a]} - {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[d]} -> {node_names[b]} and {node_names[c]} -/- {node_names[d]} orient to {node_names[a]} -> {node_names[b]} ")  #TODO to Debug.Log
+                            print(f"meek R3: {node_names[a]} - {node_names[c]} -> {node_names[b]} and {node_names[a]} - {node_names[d]} -> {node_names[b]} and {node_names[c]} -/- {node_names[d]} orient to {node_names[a]} -> {node_names[b]} ")  
                             _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
                         # R4: a - d -> c -> b and a - - c ==> a -> b
                         elif (
@@ -774,7 +768,7 @@ def typed_meek_majority_tag_with_consistency(cpdag: np.ndarray, tags: list, prio
                             and (G[a, c] == 1 or G[c, a] == 1)
                             and ((prioweight := min(priomat[c,d], priomat[d,c], priomat[b,c], priomat[c,b])) > max(priomat[b,a], priomat[a,b])) #check that prio evidence (of oriented edges) is stronger than the to orient edge 
                         ):
-                            print(f"meek R4: {node_names[a]} - {node_names[d]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} -> {node_names[c]} or {node_names[c]} -> {node_names[a]} orient to {node_names[a]} -> {node_names[b]} ")  #TODO to Debug.Log
+                            print(f"meek R4: {node_names[a]} - {node_names[d]} -> {node_names[c]} -> {node_names[b]} and {node_names[a]} -> {node_names[c]} or {node_names[c]} -> {node_names[a]} orient to {node_names[a]} -> {node_names[b]} ")  
                             _orient_typeless_with_priomat_cycle_check_adjmat(G,a,b,priomat,prioweight) #delete edge b-a and update prio weight while checking for cycles
 
         if (previous_G == G).all():
@@ -783,7 +777,7 @@ def typed_meek_majority_tag_with_consistency(cpdag: np.ndarray, tags: list, prio
             raise Exception(f"Typed Meek is stucked. More than {iter_max} iterations.")
 
         previous_G = np.copy(G)
-        print("current adj. matrix: \n", G) #TODO to Debug.Log
+        print("current adj. matrix: \n", G) 
 
     return G, priomat
 
@@ -804,7 +798,7 @@ def get_adjacency_matrices_for_all_types(skeleton, separating_sets, taglist, maj
     adjacency_mats = []
     current_type = 0
     for typelist in taglist:
-        print("current_type: ", current_type) #TODO to Debug.Log
+        print("current_type: ", current_type) 
         
         #run typed PC to get adjacency result mat for all types
         current_skeleton = skeleton.copy()
@@ -843,7 +837,7 @@ def turn_adjacency_mats_to_weighted_prio_mats_depending_on_difference_to_skeleto
 # step 3: sum weight matrices (so that you have a balance between many and types and strong types), then make adjacency matrix for each stronger direction, while checking for cycles 
 def get_adjacency_mat_from_tag_weight_mat_cycle_check(weight_mats_list, skeleton_mat, taglist, node_names=[]): #node names only needed for debugging (but very useful for that xD)):
     """
-    this version iterates from highest to lowest value in weight_mats TODO, it then checks for cycles before orienting, if cycles are found no orientation will be chosen
+    this version iterates from highest to lowest value in weight_mats, it then checks for cycles before orienting, if cycles are found no orientation will be chosen
     :param weight_mats_list: list of np.ndarray each containing the former adjacency matrix for one type, that now contains weighted entries representing how much the graph differs from the skeleton
     :param skeleton_mat: np.ndarray - adjacency matrix of the datas' skeleton (meaning undirected edges between all statistically connected nodes)
     :optional param node_names: list of string of the node names in the correct order -> only needed for debugging, can be empty

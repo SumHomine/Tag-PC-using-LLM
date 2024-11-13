@@ -12,7 +12,7 @@ from causallearn.utils.cit import *
 
 import bnlearn as bn
 
-from tag_pc_utils import _orient_typeless_with_priomat_cycle_check_adjmat, _orient_typeless_with_priomat_cycle_check_nx, assign_deleted_edges_in_priomat_evidence, exists_entry_in_forkevidencelist, fork_clashes_immorality, get_amount_difference_two_mats, get_taglist_of_int_from_text, get_typelist_from_text, get_undirect_graph, are_forks_clashing, orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check, set_types_as_int, set_tags_as_int, format_seperating_sets, _has_both_edges, _has_any_edge, _has_directed_edge, _orient_tagged, _orient_typeless_with_priomat, type_of_from_tag_single, type_of_from_tag_all, type_of_from_tag_all_from_taglist, _update_tedge_orientation, _orient_tedges, get_majority_tag_matrix, get_majority_tag_matrix_using_priomat_type_majority, amount_of_matching_types_for_two_way_fork, amount_of_matching_types_for_two_way_fork_from_taglist, get_list_of_matching_types_for_two_way_fork, get_priomat_from_skeleton, get_separating_sets_using_true_skeleton, typed_pc_from_true_skeleton
+from tag_pc_utils import _orient_typeless_with_priomat_cycle_check_adjmat, _orient_typeless_with_priomat_cycle_check_nx, assign_deleted_edges_in_priomat_evidence, exists_entry_in_forkevidencelist, fork_clashes_immorality, get_amount_difference_two_mats, get_taglist_of_int_from_text, get_undirect_graph, are_forks_clashing, orient_tagged_dag_according_majority_tag_matrix_using_prio_mat_cycle_check, set_tags_as_int, format_seperating_sets, _has_both_edges, _has_directed_edge, _orient_typeless_with_priomat, type_of_from_tag_all, get_majority_tag_matrix, get_majority_tag_matrix_using_priomat_type_majority, amount_of_matching_types_for_two_way_fork, get_priomat_from_skeleton, get_separating_sets_using_true_skeleton, typed_pc_from_true_skeleton
 from visualization import plot_dag_state, plot_dag_state_only_visible
 # from test_tag_pc import load_skeleton, save_skeleton 
 
@@ -40,8 +40,8 @@ def tag_pc (data, tags, node_names, alpha=0.05, indep_test="fisherz", equal_majo
     step 2 and 3 are seperated in tpc_tag_weighted and tpc_tag_majority
 
     recommended usage regarding tag importance:
-    if all tags have the same importance use tag majority (with type majority)
-    if you want to prioritize tags with small changes use tag weighted
+    if all tags have the same importance use Tag Majority (with type majority)
+    if you want to prioritize tags with small changes use Tag Weighted
     """
     #step 1
     taglist = get_taglist_of_int_from_text(tags=tags, node_names_ordered=node_names) #get Tags as List of List of Int
@@ -81,8 +81,8 @@ def tag_pc_from_true_skeleton (dataname : str, tags, equal_majority_rule_tagged=
     step 2 and 3 are seperated in tpc_tag_weighted and tpc_tag_majority
 
     recommended usage regarding tag importance:
-    if all tags have the same importance use tag majority (with type majority)
-    if you want to prioritize tags with small changes use tag weighted
+    if all tags have the same importance use Tag Majority (with type majority)
+    if you want to prioritize tags with small changes use Tag Weighted
     """
     #step 1 from true skelton
     skeleton, separating_sets, stat_tests, node_names, taglist = get_true_skeleton(dataname=dataname, tags=tags, data=data)
@@ -277,7 +277,7 @@ def get_true_skeleton(dataname : str, tags, data=None):
 
 
 # the rest of the code is taken from https://github.com/ServiceNow/typed-dag and strongly modified for tagged
-# -------------------------------- algo-steps for tag majority -------------------------------------
+# -------------------------------- algo-steps for Tag Majority -------------------------------------
 
 #######
 # This is the part where we orient all immoralities and two-type forks.
@@ -313,7 +313,7 @@ def orient_forks_majority_tag_naive_type(skeleton, sep_sets, priomat, taglist, n
             node_names.append(i)
 
 
-    print("orient forks tag majority type naive")
+    print("orient forks Tag Majority type naive")
     
 
     # Orient all immoralities and two-type forks
@@ -424,7 +424,7 @@ def orient_forks_majority_tag_majority_top1(skeleton, sep_sets, priomat, taglist
         for i in range(len(node_ids)):
             node_names.append(i)
 
-    print("orient forks tag majority type majority \n")
+    print("orient forks Tag Majority type majority \n")
     
     # Orient all immoralities and two-type forks
     # XXX: SERVICENOW DEBUG using shuffling to test hypothesis (very helpful actually thank you for including this <3)

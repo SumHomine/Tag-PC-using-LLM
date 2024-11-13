@@ -6,16 +6,13 @@ def run_llm(data : str, deterministic = False):
     """
     use this method to get tags using a LLM 
     :param data: string of the dataset you want to use, this method will then automatically use the correct prompts (including node_names)
-    :Param deterministic: if true try to make model as deterministic as possible, i.e. the same prompt returns the same generated text
-    """ #TODO returns einfügen
+    :param deterministic: if true try to make model as deterministic as possible, i.e. the same prompt returns the same generated text
+    :returns tags: String of the assigned tags
+    :return node_names: oredered list of string of the names of all used nodes
+    """ 
 
     #match data and get node_names and initial prompt for the given data
     match data:
-        case "forest":
-            print("TODO IMPLEMENT") #TODO Implement
-            node_names = ["A","R","S","H","B","W","F"]
-            generation_prompt = """"""
-            return
         case "asia":
             node_names = ["asia", "tub", "smoke", "lung", "bronc", "either", "xray",  "dysp"]
             generation_prompt = f"""We have found a causal system consisting of {len(node_names)} variables. The model can be described as follows:
@@ -95,7 +92,9 @@ def run_llm_default(prompt : str, node_names : list, determinstic = False):
     """
     use this method to get tags using a LLM 
     :param prompt: prompt that is fed to the LLM, will independently then reduce it and put in the pipeline
-    """ #TODO returns einfügen
+    :returns tags: String of the assigned tags
+    :return node_names: oredered list of string of the names of all used nodes
+    """
 
     #run LLM
     pipeline = load_model_pipeline()

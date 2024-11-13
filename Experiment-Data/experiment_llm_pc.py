@@ -49,7 +49,6 @@ def experiment_llm_pc(dataname, no_sid = False):
         case "forest":
             node_names = ["A","R","S","H","B","W","F"]
             print("Not implemented yet")
-            # TODO was an path / (data geben)
         case _:
             match dataname:
                 #bnlearn directly supports those, we do not need a bif file
@@ -136,7 +135,7 @@ def experiment_llm_pc(dataname, no_sid = False):
     equal_majority_rule_tagged = True #true means majority tag, false is weighted tag
     majority_rule_typed = True #majority rule of typing algo, true is normaly the better choice
 
-    dag_tagged_majority, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed) #TODO Add data for Forest
+    dag_tagged_majority, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed)
 
 
     fname = dataname + "_Tagged_PC_LLM_Generic_" +  "Tag_Majority_" + ("majoritytype" if majority_rule_typed else "naivetype")
@@ -156,7 +155,7 @@ def experiment_llm_pc(dataname, no_sid = False):
     equal_majority_rule_tagged = False #true means majority tag, false is weighted tag
     majority_rule_typed = True #majority rule of typing algo, true is normaly the better choice
 
-    dag_tagged_weighted, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed) #TODO Add data for Forest
+    dag_tagged_weighted, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed) 
 
 
     fname = dataname + "_Tagged_PC_LLM_Generic_" +  "Tag_Weighted_" + ("majoritytype" if majority_rule_typed else "naivetype")
@@ -190,7 +189,7 @@ def experiment_llm_pc(dataname, no_sid = False):
     equal_majority_rule_tagged = True #true means majority tag, false is weighted tag
     majority_rule_typed = True #majority rule of typing algo, true is normaly the better choice
 
-    dag_tagged_majority_domain, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags_domain, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed) #TODO Add data for Forest
+    dag_tagged_majority_domain, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags_domain, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed)
 
 
     fname = dataname + "_Tagged_PC_LLM_Domain_" +  "Tag_Majority_" + ("majoritytype" if majority_rule_typed else "naivetype")
@@ -209,7 +208,7 @@ def experiment_llm_pc(dataname, no_sid = False):
     equal_majority_rule_tagged = False #true means majority tag, false is weighted tag
     majority_rule_typed = True #majority rule of typing algo, true is normaly the better choice
 
-    dag_tagged_weighted_domain, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags_domain, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed) #TODO Add data for Forest
+    dag_tagged_weighted_domain, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=dataname, tags=tags_domain, equal_majority_rule_tagged=equal_majority_rule_tagged, majority_rule_typed=majority_rule_typed)
 
     fname = dataname + "_Tagged_PC_LLM_Domain_" +  "Tag_Weighted_" + ("majoritytype" if majority_rule_typed else "naivetype")
     create_graph_viz(dag=dag_tagged_weighted_domain, var_names=node_names, types=taglist[0], save_to_dir=experiment_dir, fname=fname) #print using first tag

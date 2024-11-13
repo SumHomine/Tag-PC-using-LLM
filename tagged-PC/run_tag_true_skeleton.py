@@ -537,6 +537,6 @@ dag, stat_tests, node_names, taglist = tag_pc_from_true_skeleton(dataname=datana
 
 
 dir = "Tag-PC-using-LLM/tagged-PC"
-fname = "tdag_" + dataname + "_" + "true_skeleton_" + ("AI_Tag_New_" if llm_generated_tags else "") + ("majoritytag_" if equal_majority_rule_tagged else "weightedtag_") + ("majoritytype" if majority_rule_typed else "naivetype") + "_0" # + "_multitag1_topo_person_car" # _weather_watervapor
+fname = "tdag_" + dataname + "_" + "true_skeleton_" + ("AI_Tag_New_" if llm_generated_tags else "") + ("majoritytag_" if equal_majority_rule_tagged else "weightedtag_") + ("majoritytype" if majority_rule_typed else "naivetype") + "" # + "_multitag1_topo_person_car" # _weather_watervapor
 create_graph_viz(dag=dag, var_names=node_names, types=taglist[0], save_to_dir=dir, fname=fname) #print using first tag, if you want to see all tags, I suggest using Gimp to do so. Have Fun! 
 if llm_generated_tags: print(f"Ai generated Tags:\n{tags}")

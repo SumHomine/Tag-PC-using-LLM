@@ -23,24 +23,23 @@ data_sid = {
 }
 
 
-# Convert to DataFrames for easier processing
+# convert to DataFrames for easier processing
 df_shd = pd.DataFrame(data_shd).set_index("Dataset")
 df_sid = pd.DataFrame(data_sid).set_index("Dataset")
 
 print(df_shd)
 
-# Apply rankdata row-wise
 ranked_shd = df_shd.T.apply(lambda row: rankdata(row, method='average', nan_policy="omit"), axis=0).T
 ranked_sid = df_sid.T.apply(lambda row: rankdata(row, method='average', nan_policy="omit"), axis=0).T
 
 print(ranked_shd)
 print(ranked_sid)
 
-# Calculate the average percentage rank for each method across all datasets
+# calculate average percentage rank
 average_rank_shd = ranked_shd.mean()
 average_rank_sid = ranked_sid.mean()
 
-# Output the results
+# output results
 print("Average Percentage Ranks for SHD (using 'average' method):")
 print(average_rank_shd)
 

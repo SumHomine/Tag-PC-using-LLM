@@ -59,12 +59,12 @@ def _orient_only_immoralites(skeleton, sep_sets, priomat, taglist):
                 # XXX: had to add the last two conditions in case k is no longer a child due to t-edge orientation
                 print(
                     f"S: orient immorality {i} (t{type_of_from_tag_all(dag, i)}) -> {k} (t{type_of_from_tag_all(dag, k)}) <- {j} (t{type_of_from_tag_all(dag, j)})"
-                ) #TODO to Debug.Log
+                )
                 # orient just v-structure ignore tags for now, but add strong entry in prio matrix (since v-strucutre comes from data it should not be overwritten easily later on)
                 prio_weight = len(taglist)
                 _orient_typeless_with_priomat(dag, i, k, priomat, prio_weight)
                 _orient_typeless_with_priomat(dag, j, k, priomat, prio_weight)
-                # print("priomat after orienten v-strucutre: \n", priomat)  #TODO to Debug.Log #still comment out
+                # print("priomat after orienten v-strucutre: \n", priomat)
                 
                 
     return dag, priomat

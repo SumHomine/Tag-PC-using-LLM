@@ -78,7 +78,7 @@ def tpc_from_true_skeleton (dataname, types, majority_rule=True, data=None):
     #step 1 from true skelton
     skeleton, separating_sets, stat_tests, node_names, typelist = get_true_skeleton(dataname=dataname, types=types, data=data)
 
-    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense()) #TODO to Debug.Log
+    print("skeleton: \n", nx.adjacency_matrix(skeleton).todense())
 #    save_skeleton(skeleton=skeleton, separating_sets=separating_sets, stat_tests=stat_tests)     # -> use for debugging when you want to save a new skeleton
 #    skeleton, separating_sets, stat_tests = load_skeleton()                                 # -> use for debugging when you dont want to wait to create skeleton -> also comment out create skeleton/seperating_sets
 
@@ -157,7 +157,7 @@ def get_true_skeleton(dataname : str, types, data):
     # Get separating sets
     separating_sets = get_separating_sets_using_true_skeleton(skeleton, adjacency_mat)
     separating_sets = format_seperating_sets(separating_sets)
-    print("seperating sets: \n", separating_sets) #TODO to Debug.Log
+    print("seperating sets: \n", separating_sets)
 
     return skeleton, separating_sets, stat_tests, node_names, typelist
 
@@ -542,7 +542,6 @@ def pc_meek_rules(dag):
 
             # Rule 4: Orient i-j into i->j whenever there are two chains
             # i-k->l and k->l->j such that k and j are nonadjacent.
-            # TODO: validate me
             if _has_both_edges(dag, i, j):
                 # Find nodes k where i-k.
                 adj_i = set()
